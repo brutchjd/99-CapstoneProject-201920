@@ -207,6 +207,15 @@ class ArmAndClaw(object):
                (i.e., 14.2 motor revolutions),
           3. Resets the motor's position to 0.
         """
+        self.raise_arm()
+        pos0 = self.motor.get_position()
+        self.motor.turn_on(-100)
+        while True:
+            pos = self.motor.get_position()
+            if abs(pos - pos0) >= 14.2 * 360:
+                self.motor.turn_off()
+                break
+        self.motor.reset_position()
 
     def move_arm_to_position(self, desired_arm_position):
         """
@@ -219,7 +228,11 @@ class ArmAndClaw(object):
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
-
+        self.motor.turn_on(-100)
+        while True:
+            if self.touch_sensor.is_pressed():
+                self.motor.turn_off()
+                break
 ###############################################################################
 #    SensorSystem
 ###############################################################################
