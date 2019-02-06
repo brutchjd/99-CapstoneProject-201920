@@ -228,9 +228,10 @@ class ArmAndClaw(object):
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
-        self.motor.turn_on(-100)
+        pos0 = self.motor.get_position()
         while True:
-            if self.touch_sensor.is_pressed():
+            pos = self.motor.get_position()
+            if abs(pos - pos0) >= 14.2 * 360:
                 self.motor.turn_off()
                 break
 ###############################################################################
