@@ -228,20 +228,19 @@ class ArmAndClaw(object):
         current_pos = self.motor.get_position()
 
         if goal > current_pos:
-            self.motor.turn_on(100)
-            while True:
-                pos1 = self.motor.get_position()
-                if pos1 == goal:
-                    self.motor.turn_off()
-                    break
-                    
-        if goal < current_pos:
-            self.motor.turn_on(-100)
-            while True:
-                pos2 = self.motor.get_position()
-                if pos2 == goal:
-                    self.motor.turn_off()
-                    break
+            k = 1
+        else:
+            k = -1
+
+        self.motor.turn_on(k * 100)
+        while True:
+            pos1 = self.motor.get_position()
+            if pos1 == goal:
+                self.motor.turn_off()
+                break
+            if self.touch_sensor.is_pressed():
+                self.motor.turn_off()
+                break
 
 
     def lower_arm(self):

@@ -43,8 +43,11 @@ def test_lower_arm():
 
 def test_move_arm_to_position():
     robot = rosebot.RoseBot()
+    print('Calibrating arm')
+    robot.arm_and_claw.calibrate_arm()
     print('testing move arm to position 1000 degrees')
     robot.arm_and_claw.move_arm_to_position(1000)
+    time.sleep(5.0)
     print('3000 degrees')
     robot.arm_and_claw.move_arm_to_position(3000)
     print('Done!')
