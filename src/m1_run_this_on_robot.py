@@ -17,10 +17,10 @@ def main():
       2. Communicates via MQTT with the GUI code that runs on the LAPTOP.
     """
     #test_raise_arm()
-    test_calibrate_arm()
+    #test_calibrate_arm()
     #test_lower_arm()
-    #real_demonstration()
-    test_move_arm_to_position()
+    real_demonstration()
+    #test_move_arm_to_position()
 
 
 def test_raise_arm():
@@ -57,9 +57,9 @@ def test_move_arm_to_position():
 def real_demonstration():
     print('creating robot')
     robot = rosebot.RoseBot()
-    reciever = rec.Reciever(robot)
-    mqtt_reciever = com.MqttClient(reciever)
-    mqtt_reciever.connect_to_pc()
+    receiver = rec.Receiver(robot)
+    mqtt_receiver = com.MqttClient(receiver)
+    mqtt_receiver.connect_to_pc()
 
     while True:
         time.sleep(0.01)
