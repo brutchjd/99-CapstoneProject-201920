@@ -67,8 +67,8 @@ def get_shared_frames(main_frame, mqtt_sender):
 
 def grid_frames(teleop_frame, arm_frame, control_frame):
     teleop_frame.grid(row=0, column=0)
-    arm_frame.grid(row=1, column=1)
-    control_frame.grid(row=2, column=2)
+    arm_frame.grid(row=1, column=0)
+    control_frame.grid(row=2, column=0)
 
 
 # -----------------------------------------------------------------------------
