@@ -8,7 +8,7 @@
 import rosebot
 import mqtt_remote_method_calls as com
 import time
-
+import shared_gui_delegate_on_robot as rec
 
 def main():
     """
@@ -18,7 +18,8 @@ def main():
     """
     #test_raise_arm()
     #test_calibrate_arm()
-    test_lower_arm()
+    #test_lower_arm()
+    real_demonstration()
 
 
 def test_raise_arm():
@@ -38,6 +39,21 @@ def test_lower_arm():
     print("Robot Created")
     robot.arm_and_claw.lower_arm()
     print('Done!')
+
+
+def real_demonstration():
+    robot = rosebot.RoseBot()
+    reciever = rec.Reciever(robot)
+    mqtt_reciever = com.MqttClient(reciever)
+    mqtt_reciever.connect_to_pc()
+
+    while True:
+        time.sleep(0.01)
+
+
+
+
+
 
 
 # -----------------------------------------------------------------------------
