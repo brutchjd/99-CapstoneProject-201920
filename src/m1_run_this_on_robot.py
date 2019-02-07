@@ -19,7 +19,8 @@ def main():
     #test_raise_arm()
     #test_calibrate_arm()
     #test_lower_arm()
-    real_demonstration()
+    #real_demonstration()
+    test_move_arm_to_position()
 
 
 def test_raise_arm():
@@ -40,6 +41,13 @@ def test_lower_arm():
     robot.arm_and_claw.lower_arm()
     print('Done!')
 
+def test_move_arm_to_position():
+    robot = rosebot.RoseBot()
+    print('testing move arm to position 1000 degrees')
+    robot.arm_and_claw.move_arm_to_position(1000)
+    print('3000 degrees')
+    robot.arm_and_claw.move_arm_to_position(3000)
+    print('Done!')
 
 def real_demonstration():
     robot = rosebot.RoseBot()
