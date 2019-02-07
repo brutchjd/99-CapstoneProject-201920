@@ -57,6 +57,7 @@ def main():
     # -------------------------------------------------------------------------
     root.mainloop()
 
+
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
     arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
