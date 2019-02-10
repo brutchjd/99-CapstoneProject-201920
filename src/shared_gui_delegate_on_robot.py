@@ -57,7 +57,14 @@ class Receiver(object):
         print('Got Quit')
         self.quit_bool = True
 
+    def seconds(self, seconds):
+        print('Got Seconds', seconds)
+        self.robot.drive_system.go_straight_for_seconds(seconds)
 
+    def inches(self, inches):
+        print('Got Inches', inches)
+        self.robot.drive_system.go_straight_for_inches_using_time(inches)
 
-
-
+    def encoder(self, encoder):
+        print('Got Encoder', encoder)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(encoder)

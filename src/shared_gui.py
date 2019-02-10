@@ -309,15 +309,15 @@ def handle_exit(mqtt_sender):
 # Handlers for Buttons in the Drive System frame.
 ##############################################################################
 def handle_seconds(seconds_entry, mqtt_sender):
-    print('Drive Straight by Seconds', seconds_entry.get())
+    print('Drive Straight (Seconds)', seconds_entry.get())
     mqtt_sender.send_message('seconds',[seconds_entry.get()])
 
 
 def handle_inches(inches_entry, mqtt_sender):
-    print('Drive Straight by Inches', inches_entry.get())
+    print('Drive Straight (Inches)', inches_entry.get())
     mqtt_sender.send_message('inches', [inches_entry.get()])
 
 
 def handle_encoder(encoder_entry, mqtt_sender):
-    print('Drive Straight by Encoder', encoder_entry.get())
+    print('Drive Straight (Encoder)', encoder_entry.get())
     mqtt_sender.send_message('encoder', [encoder_entry.get()])
