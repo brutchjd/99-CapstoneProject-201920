@@ -18,12 +18,13 @@ def main():
     """
     #test_raise_arm()
     #test_calibrate_arm()
-    #test_lower_arm()
-    real_demonstration()
+    test_lower_arm()
+    #real_demonstration()
     #test_move_arm_to_position()
 
 
 def test_raise_arm():
+    print('test_raise_arm():')
     print('creating robot')
     robot = rosebot.RoseBot()
     print('created robot')
@@ -31,6 +32,7 @@ def test_raise_arm():
     print('Done!')
 
 def test_calibrate_arm():
+    print('test_calibrate_arm():')
     print('creating robot')
     robot = rosebot.RoseBot()
     print('calibrating arm')
@@ -38,20 +40,27 @@ def test_calibrate_arm():
     print('Done!')
 
 def test_lower_arm():
+    print('test_lower_arm():')
     print('creating robot')
     robot = rosebot.RoseBot()
     print("Robot Created")
+    print("Moving to a position above 0")
+    robot.arm_and_claw.move_arm_to_position(2000)
+    print('Testing Lower arm')
     robot.arm_and_claw.lower_arm()
     print('Done!')
 
 def test_move_arm_to_position():
+    print('test_move_arm_to_position():')
     print('creating robot')
     robot = rosebot.RoseBot()
-    print('testing move arm to position 1000 degrees')
-    robot.arm_and_claw.move_arm_to_position(1000)
-    time.sleep(5.0)
-    print('3000 degrees')
+    print('calibrating arm')
+    robot.arm_and_claw.calibrate_arm()
+    print('testing move arm to position 3000 degrees')
     robot.arm_and_claw.move_arm_to_position(3000)
+    time.sleep(5.0)
+    print('500 degrees')
+    robot.arm_and_claw.move_arm_to_position(500)
     print('Done!')
 
 def real_demonstration():

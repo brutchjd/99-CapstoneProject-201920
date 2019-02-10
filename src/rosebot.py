@@ -232,7 +232,7 @@ class ArmAndClaw(object):
                 print('reached bottom')
                 break
         self.motor.reset_position()
-        print('position reset')
+        print('position reset, should be approximately 0: ', self.motor.get_position())
 
 
     def move_arm_to_position(self, desired_arm_position):
@@ -251,12 +251,13 @@ class ArmAndClaw(object):
         self.motor.turn_on(k * 100)
         while True:
             pos1 = self.motor.get_position()
-            if pos1 == goal:
+            if pos1 <= goal + 5 and pos1 >= goal -5:
                 self.motor.turn_off()
                 break
             if self.touch_sensor.is_pressed():
                 self.motor.turn_off()
                 break
+        print("Final position: ", self.motor.get_position())
 
 
     def lower_arm(self):
@@ -264,13 +265,8 @@ class ArmAndClaw(object):
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
-        pos0 = self.motor.get_position()
-        while True:
-            self.motor.turn_on(-100)
-            pos = self.motor.get_position()
-            if abs(pos - pos0) >= 14.2 * 360:
-                self.motor.turn_off()
-                break
+        self.move_arm_to_position(0)
+
 ###############################################################################
 #    SensorSystem
 ###############################################################################
