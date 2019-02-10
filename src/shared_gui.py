@@ -153,6 +153,7 @@ def get_drive_frame(window, mqtt_sender):
     frame.grid()
 
     frame_label = ttk.Label(frame, text="Drive System")
+    speed_label = ttk.Label(frame, text="Enter speed:")
     seconds_button = ttk.Button(frame, text='Straight Using Seconds')
     inches_button = ttk.Button(frame, text='Straight Using Inches')
     encoder_button = ttk.Button(frame, text='Straight Using Encoder')
@@ -160,24 +161,52 @@ def get_drive_frame(window, mqtt_sender):
     seconds_entry = ttk.Entry(frame, width=8)
     inches_entry = ttk.Entry(frame, width=8)
     encoder_entry = ttk.Entry(frame, width=8)
+    speed_entry = ttk.Entry(frame, width=8)
 
     frame_label.grid(row=0, column=1)
-    seconds_button.grid(row=2, column=0)
-    inches_button.grid(row=2, column=1)
-    encoder_button.grid(row=2, column=2)
+    speed_label.grid(row=4, column=0)
+    speed_entry.grid(row=4, column=1)
+    seconds_button.grid(row=1, column=0)
+    inches_button.grid(row=2, column=0)
+    encoder_button.grid(row=3, column=0)
 
-    seconds_entry.grid(row=1, column=0)
-    inches_entry.grid(row=1, column=1)
-    encoder_entry.grid(row=1, column=2)
+    seconds_entry.grid(row=1, column=1)
+    inches_entry.grid(row=2, column=1)
+    encoder_entry.grid(row=3, column=1)
 
-    seconds_button['command'] = lambda: handle_seconds(seconds_entry, mqtt_sender)
-    inches_button['command'] = lambda: handle_inches(inches_entry, mqtt_sender)
-    encoder_button['command'] = lambda: handle_encoder(encoder_entry, mqtt_sender)
+    seconds_button["command"] = lambda: handle_seconds(seconds_entry, speed_entry, mqtt_sender)
+    inches_button["command"] = lambda: handle_inches(inches_entry, speed_entry, mqtt_sender)
+    encoder_button["command"] = lambda: handle_encoder(encoder_entry, speed_entry, mqtt_sender)
 
     return frame
 
+
 def get_sound_frame(window, mqtt_sender):
-    pass
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="Sound System")
+    beep_button = ttk.Button(frame, text='Beep')
+    frequency_button = ttk.Button(frame, text='Frequency')
+    speak_button = ttk.Button(frame, text='Speak')
+
+    beep_entry = ttk.Entry(frame, width=25)
+    frequency_entry = ttk.Entry(frame, width=25)
+    speak_entry = ttk.Entry(frame, width=25)
+
+    frame_label.grid(row=0, column=1)
+    beep_entry.grid(row=1, column=1)
+    beep_button.grid(row=1, column=0)
+    frequency_button.grid(row=2, column=0)
+    frequency_entry.grid(row=2, column=1)
+    speak_button.grid(row=4, column=0)
+    speak_entry.grid(row=4, column=1)
+
+    speak_button["command"] = lambda: handle_speak(speak_entry, mqtt_sender)
+    frequency_button["command"] = lambda: handle_frequency(frequency_entry, mqtt_sender)
+    beep_button["command"] = lambda: handle_beep(beep_entry, mqtt_sender)
+
+    return frame
 
 
 ###############################################################################
@@ -311,30 +340,34 @@ def handle_exit(mqtt_sender):
 ##############################################################################
 # Handlers for Buttons in the Drive System frame.
 ##############################################################################
-def handle_seconds(seconds_entry, mqtt_sender):
-    print('Drive Straight (Seconds)', seconds_entry.get())
-    mqtt_sender.send_message('seconds',[seconds_entry.get()])
+def handle_seconds(seconds_entry, speed_entry, mqtt_sender):
+    print('Drive Straight (Seconds)', seconds_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('seconds',[seconds_entry.get(), speed_entry.get()])
 
 
-def handle_inches(inches_entry, mqtt_sender):
-    print('Drive Straight (Inches)', inches_entry.get())
-    mqtt_sender.send_message('inches', [inches_entry.get()])
+def handle_inches(inches_entry, speed_entry, mqtt_sender):
+    print('Drive Straight (Inches)', inches_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('inches', [inches_entry.get(), speed_entry.get()])
 
 
-def handle_encoder(encoder_entry, mqtt_sender):
-    print('Drive Straight (Encoder)', encoder_entry.get())
-    mqtt_sender.send_message('encoder', [encoder_entry.get()])
+def handle_encoder(encoder_entry, speed_entry, mqtt_sender):
+    print('Drive Straight (Encoder)', encoder_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('encoder', [encoder_entry.get(), speed_entry.get()])
+
 
 ##############################################################################
 # Handlers for Buttons in the Sound System frame.
 ##############################################################################
-def handle_beep():
-    pass
+def handle_beep(beep_entry, mqtt_sender):
+    print('Beeping', beep_entry.get(), 'times')
+    mqtt_sender.send_message('beep', [beep_entry.get()])
 
 
-def handle_frequency():
-    pass
+def handle_frequency(frequency_entry, mqtt_sender):
+    print('Frequency:', frequency_entry.get())
+    mqtt_sender.send_message('frequency', [frequency_entry.get()])
 
 
-def handle_speak():
-    pass
+def handle_speak(speak_entry, mqtt_sender):
+    print('Saying:', speak_entry.get())
+    mqtt_sender.send_message('speak', [speak_entry.get()])

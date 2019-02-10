@@ -57,14 +57,23 @@ class Receiver(object):
         print('Got Quit')
         self.quit_bool = True
 
-    def seconds(self, seconds):
+    def seconds(self, seconds, speed):
         print('Got Seconds', seconds)
-        self.robot.drive_system.go_straight_for_seconds(seconds, 100)
+        self.robot.drive_system.go_straight_for_seconds(int(seconds), int(speed))
 
-    def inches(self, inches):
+    def inches(self, inches, speed):
         print('Got Inches', inches)
-        self.robot.drive_system.go_straight_for_inches_using_time(inches, 100)
+        self.robot.drive_system.go_straight_for_inches_using_time(int(inches), int(speed))
 
-    def encoder(self, encoder):
+    def encoder(self, encoder, speed):
         print('Got Encoder', encoder)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(encoder, 100)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(int(encoder), int(speed))
+
+    def speak(self, speak):
+        pass
+
+    def beep(self, beep):
+        pass
+
+    def frequency(self, frequency):
+        pass

@@ -31,10 +31,7 @@ class RoseBot(object):
     def __init__(self):
         # Use these instance variables
         self.sensor_system = SensorSystem()
-        self.drive_system = DriveSystem(self.sensor_system)
-        self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
-        self.sensor_system = SensorSystem()
-        self.sound_system = SoundSystem()
+        # self.sound_system = SoundSystem()
         # self.led_system = LEDSystem()
         self.drive_system = DriveSystem(self.sensor_system)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
@@ -94,9 +91,15 @@ class DriveSystem(object):
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
-        self.go(speed, speed)
-        time.sleep(seconds)
-        self.stop()
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        start = time.time()
+        while True:
+            current = time.time()
+            if current - start >= seconds:
+                break
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
