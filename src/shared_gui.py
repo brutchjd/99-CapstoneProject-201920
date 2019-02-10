@@ -221,7 +221,7 @@ def handle_raise_arm(mqtt_sender):
       :type  mqtt_sender:  com.MqttClient
     """
     print("Raise Arm")
-    mqtt_sender.send_message('raise')
+    mqtt_sender.send_message('raise_arm')
 
 def handle_lower_arm(mqtt_sender):
     """
@@ -260,6 +260,8 @@ def handle_quit(mqtt_sender):
     Tell the robot's program to stop its loop (and hence quit).
       :type  mqtt_sender:  com.MqttClient
     """
+    print('Quit')
+    mqtt_sender.send_message('quit')
 
 
 def handle_exit(mqtt_sender):

@@ -24,12 +24,36 @@ class Receiver(object):
         print('Got Backward', lws_b, rws_b)
         self.robot.drive_system.go(lws_b, rws_b)
 
-    def left(self):
-        print('Left')
+    def left(self, lws, rws):
+        print('Got Left')
+        self.robot.drive_system.go(-int(lws), int(rws))
 
-    def right(self):
-        print('Right')
+    def right(self, lws, rws):
+        print('Got Right')
+        self.robot.drive_system.go(int(lws), -int(rws))
 
     def stop(self):
-        print('Stop')
+        print('Got Stop')
         self.robot.drive_system.stop()
+
+    def raise_arm(self):
+        print('Got Raise Arm')
+        self.robot.arm_and_claw.raise_arm()
+
+    def lower(self):
+        print('Got Lower Arm')
+        self.robot.arm_and_claw.lower_arm()
+
+    def calibrate(self):
+        print('Got Calibrate Arm')
+        self.robot.arm_and_claw.calibrate_arm()
+
+    def position(self, pos):
+        print('Got Position: ', pos)
+        self.robot.arm_and_claw.move_arm_to_position(pos)
+
+    def quit(self):
+        print('Got Quit')
+        self.robot.
+
+

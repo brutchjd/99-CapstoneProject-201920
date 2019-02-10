@@ -266,6 +266,7 @@ class ArmAndClaw(object):
         The robot must have previously calibrated its Arm.
         """
         self.move_arm_to_position(0)
+        print('Final Position: ', self.motor.get_position())
 
 ###############################################################################
 #    SensorSystem

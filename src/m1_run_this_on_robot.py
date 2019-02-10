@@ -18,8 +18,8 @@ def main():
     """
     #test_raise_arm()
     #test_calibrate_arm()
-    test_lower_arm()
-    #real_demonstration()
+    #test_lower_arm()
+    real_demonstration()
     #test_move_arm_to_position()
 
 
