@@ -13,6 +13,7 @@ class Receiver(object):
     def __init__(self, robot):
         """ :type   robot:  rosebot.RoseBot"""
         self.robot = robot
+        self.quit_bool = False
 
     def forward(self, lws, rws):
         print('Got Forward', lws, rws)
@@ -50,10 +51,13 @@ class Receiver(object):
 
     def position(self, pos):
         print('Got Position: ', pos)
-        self.robot.arm_and_claw.move_arm_to_position(pos)
+        self.robot.arm_and_claw.move_arm_to_position(int(pos))
 
     def quit(self):
         print('Got Quit')
-        self.robot.
+        self.quit_bool = True
+
+
+
 
 

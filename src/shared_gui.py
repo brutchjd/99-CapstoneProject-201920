@@ -142,7 +142,8 @@ def get_control_frame(window, mqtt_sender):
 
     # Set the Button callbacks:
     quit_robot_button["command"] = lambda: handle_quit(mqtt_sender)
-    exit_button["command"] = lambda: handle_exit(mqtt_sender)
+    exit_button["command"] = lambda: (handle_exit(mqtt_sender),
+                                      frame.quit())
 
     return frame
 
@@ -270,3 +271,5 @@ def handle_exit(mqtt_sender):
     Then exit this program.
       :type mqtt_sender: com.MqttClient
     """
+    print('Exit')
+    mqtt_sender.send_message('quit')

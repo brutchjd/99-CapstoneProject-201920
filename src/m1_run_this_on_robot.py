@@ -72,6 +72,8 @@ def real_demonstration():
 
     while True:
         time.sleep(0.01)
+        if receiver.quit_bool:
+            break
 
 
 
