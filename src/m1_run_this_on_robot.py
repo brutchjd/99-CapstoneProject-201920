@@ -19,8 +19,10 @@ def main():
     #test_raise_arm()
     #test_calibrate_arm()
     #test_lower_arm()
-    real_demonstration()
+    #real_demonstration()
     #test_move_arm_to_position()
+    test_go_straight_for_inches_using_time()
+    test_go_straight_for_inches_using_encoder()
 
 
 def test_raise_arm():
@@ -75,7 +77,23 @@ def real_demonstration():
         if receiver.quit_bool:
             break
 
+def test_go_straight_for_inches_using_time():
+    print('Creating robot')
+    robot = rosebot.RoseBot()
+    print('Go forward for 3 inches, half speed')
+    robot.drive_system.go_straight_for_inches_using_time(3, 50)
+    print('Go forward for 6 inches, full speed')
+    robot.drive_system.go_straight_for_inches_using_time(6, 100)
+    print('Done!')
 
+def test_go_straight_for_inches_using_encoder():
+    print('Creating robot')
+    robot = rosebot.RoseBot()
+    print('Go forward for 3 inches, half speed')
+    robot.drive_system.go_straight_for_inches_using_encoder(3, 50)
+    print('Go forward for 6 inches, full speed')
+    robot.drive_system.go_straight_for_inches_using_encoder(6, 100)
+    print('Done!')
 
 
 
