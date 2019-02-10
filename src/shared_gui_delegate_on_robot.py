@@ -59,12 +59,12 @@ class Receiver(object):
 
     def seconds(self, seconds):
         print('Got Seconds', seconds)
-        self.robot.drive_system.go_straight_for_seconds(seconds)
+        self.robot.drive_system.go_straight_for_seconds(seconds, 100)
 
     def inches(self, inches):
         print('Got Inches', inches)
-        self.robot.drive_system.go_straight_for_inches_using_time(inches)
+        self.robot.drive_system.go_straight_for_inches_using_time(inches, 100)
 
     def encoder(self, encoder):
         print('Got Encoder', encoder)
-        self.robot.drive_system.go_straight_for_inches_using_encoder(encoder)
+        self.robot.drive_system.go_straight_for_inches_using_encoder(encoder, 100)

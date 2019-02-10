@@ -176,6 +176,9 @@ def get_drive_frame(window, mqtt_sender):
 
     return frame
 
+def get_sound_frame(window, mqtt_sender):
+    pass
+
 
 ###############################################################################
 ###############################################################################
@@ -321,3 +324,17 @@ def handle_inches(inches_entry, mqtt_sender):
 def handle_encoder(encoder_entry, mqtt_sender):
     print('Drive Straight (Encoder)', encoder_entry.get())
     mqtt_sender.send_message('encoder', [encoder_entry.get()])
+
+##############################################################################
+# Handlers for Buttons in the Sound System frame.
+##############################################################################
+def handle_beep():
+    pass
+
+
+def handle_frequency():
+    pass
+
+
+def handle_speak():
+    pass
