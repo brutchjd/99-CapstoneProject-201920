@@ -147,6 +147,36 @@ def get_control_frame(window, mqtt_sender):
 
     return frame
 
+
+def get_drive_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text="Drive System")
+    seconds_button = ttk.Button(frame, text='Straight Using Seconds')
+    inches_button = ttk.Button(frame, text='Straight Using Inches')
+    encoder_button = ttk.Button(frame, text='Straight Using Encoder')
+
+    seconds_entry = ttk.Entry(frame, width=8)
+    inches_entry = ttk.Entry(frame, width=8)
+    encoder_entry = ttk.Entry(frame, width=8)
+
+    frame_label.grid(row=0, column=1)
+    seconds_button.grid(row=2, column=0)
+    inches_button.grid(row=2, column=1)
+    encoder_button.grid(row=2, column=2)
+
+    seconds_entry.grid(row=1, column=0)
+    inches_entry.grid(row=1, column=1)
+    encoder_entry.grid(row=1, column=2)
+
+    seconds_button['command'] = lambda: handle_seconds(seconds_entry, mqtt_sender)
+    inches_button['command'] = lambda: handle_inches(inches_entry, mqtt_sender)
+    encoder_button['command'] = lambda: handle_encoder(encoder_entry, mqtt_sender)
+
+    return frame
+
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -273,3 +303,21 @@ def handle_exit(mqtt_sender):
     """
     print('Exit')
     mqtt_sender.send_message('quit')
+
+
+##############################################################################
+# Handlers for Buttons in the Drive System frame.
+##############################################################################
+def handle_seconds(seconds_entry, mqtt_sender):
+    print('Drive Straight by Seconds', seconds_entry.get())
+    mqtt_sender.send_message('seconds',[seconds_entry.get()])
+
+
+def handle_inches(inches_entry, mqtt_sender):
+    print('Drive Straight by Inches', inches_entry.get())
+    mqtt_sender.send_message('inches', [inches_entry.get()])
+
+
+def handle_encoder(encoder_entry, mqtt_sender):
+    print('Drive Straight by Encoder', encoder_entry.get())
+    mqtt_sender.send_message('encoder', [encoder_entry.get()])
