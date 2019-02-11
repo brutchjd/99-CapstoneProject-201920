@@ -26,7 +26,7 @@ def real_thing():
 
     while True:
         time.sleep(0.01)
-        if receiver.is_time_to_stop:
+        if receiver.quit_bool:
             break
 
 # -----------------------------------------------------------------------------
