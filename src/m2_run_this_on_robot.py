@@ -28,7 +28,8 @@ def main_project():
 
     while True:
         time.sleep(0.01)
-
+        if receiver.quit_bool:
+            break
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
