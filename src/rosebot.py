@@ -30,13 +30,13 @@ import math
 class RoseBot(object):
     def __init__(self):
         # Use these instance variables
-        # self.sensor_system = SensorSystem()
+        self.sensor_system = SensorSystem()
         self.sound_system = SoundSystem()
         self.led_system = LEDSystem()
         self.drive_system = DriveSystem(self.sensor_system)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
-        # self.beacon_system = BeaconSystem()
-        # self.display_system = DisplaySystem()
+        self.beacon_system = BeaconSystem()
+        self.display_system = DisplaySystem()
 
 
 
@@ -345,7 +345,7 @@ class SensorSystem(object):
         self.touch_sensor = TouchSensor(1)
         self.color_sensor = ColorSensor(3)
         self.ir_proximity_sensor = InfraredProximitySensor(4)
-        self.camera = Camera()
+        # self.camera = Camera()
         # self.ir_beacon_sensor = InfraredBeaconSensor(4)
         # self.beacon_system =
         # self.display_system =
