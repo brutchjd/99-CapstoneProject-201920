@@ -290,7 +290,7 @@ class ArmAndClaw(object):
         print('lowering arm')
         while True:
             pos = self.motor.get_position()
-            if abs(pos - pos0) >= 14.2 * 360:
+            if abs(pos - pos0) >= 14.1 * 360:
                 self.motor.turn_off()
                 print('reached bottom')
                 break
