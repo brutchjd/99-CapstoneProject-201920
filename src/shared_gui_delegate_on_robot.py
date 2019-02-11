@@ -70,10 +70,14 @@ class Receiver(object):
         self.robot.drive_system.go_straight_for_inches_using_encoder(int(encoder), int(speed))
 
     def speak(self, speak):
+        print("Got Speak")
         pass
 
     def beep(self, beep):
-        pass
+        print('Got Beep')
+        for k in range(int(beep)):
+            self.robot.sound_system.beeper.beep().wait()
 
     def frequency(self, frequency):
+        print('Got Frequency')
         pass
