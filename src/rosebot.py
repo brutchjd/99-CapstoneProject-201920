@@ -135,12 +135,26 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
+        color_sensor = ev3.ColorSensor()
+        found_intensity = color_sensor.reflected_light_intensity
+        self.go(speed, speed)
+        while True:
+            if found_intensity < intensity:
+                self.stop()
+                break
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        color_sensor = ev3.ColorSensor()
+        found_intensity = color_sensor.reflected_light_intensity
+        self.go(speed, speed)
+        while True:
+            if found_intensity > intensity:
+                self.stop()
+                break
 
     def go_straight_until_color_is(self, color, speed):
         """
@@ -155,6 +169,13 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
+        color_sensor = ev3.ColorSensor()
+        found_color = color_sensor.color
+        self.go(speed, speed)
+        while True:
+            if found_color == color:
+                self.stop()
+                break
 
     def go_straight_until_color_is_not(self, color, speed):
         """
@@ -164,6 +185,13 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
+        color_sensor = ev3.ColorSensor()
+        found_color = color_sensor.color
+        self.go(speed, speed)
+        while True:
+            if found_color != color:
+                self.stop()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
@@ -265,14 +293,14 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
-
+        self.right_motor.turn_on(speed)
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """
         Spins counter-clockwise at the given speed until the camera sees an object
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
-
+        self.left_motor.turn_on(speed)
 
 ###############################################################################
 #    ArmAndClaw
