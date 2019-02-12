@@ -21,8 +21,9 @@ def main():
     #test_lower_arm()
     #real_demonstration()
     #test_move_arm_to_position()
-    test_go_straight_for_inches_using_time()
-    test_go_straight_for_inches_using_encoder()
+    #test_go_straight_for_inches_using_time()
+    #test_go_straight_for_inches_using_encoder()
+    test_display_camera_data()
 
 
 def test_raise_arm():
@@ -95,6 +96,11 @@ def test_go_straight_for_inches_using_encoder():
     robot.drive_system.go_straight_for_inches_using_encoder(6, 100)
     print('Done!')
 
+def test_display_camera_data():
+    print('Creating robot')
+    robot = rosebot.RoseBot()
+    print('Testing display camera data:')
+    robot.drive_system.display_camera_data()
 
 
 

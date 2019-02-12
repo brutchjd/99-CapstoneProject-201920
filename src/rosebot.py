@@ -302,6 +302,8 @@ class DriveSystem(object):
         Prints on the Console the Blob data of the Blob that the camera sees
         (if any).
         """
+        blob_data = self.sensor_system.camera.get_biggest_blob()
+        print(blob_data)
 
     def spin_clockwise_until_sees_object(self, speed, area):
         """
@@ -423,7 +425,7 @@ class SensorSystem(object):
         self.touch_sensor = TouchSensor(1)
         self.color_sensor = ColorSensor(3)
         self.ir_proximity_sensor = InfraredProximitySensor(4)
-        # self.camera = Camera()
+        self.camera = Camera()
         # self.ir_beacon_sensor = InfraredBeaconSensor(4)
         # self.beacon_system =
         # self.display_system =
