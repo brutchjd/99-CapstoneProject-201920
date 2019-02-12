@@ -201,11 +201,15 @@ class DriveSystem(object):
         Goes forward at the given speed until the robot is less than
         the given number of inches from the nearest object that it senses.
         """
-        # start = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        start = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+        print(start)
         self.go(speed, speed)
         while True:
             test = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            time.sleep(2)
+            print(test)
             if test < inches:
+                print(test)
                 break
         self.right_motor.turn_off()
         self.left_motor.turn_off()
@@ -216,10 +220,14 @@ class DriveSystem(object):
         the given number of inches from the nearest object that it senses.
         Assumes that it senses an object when it starts.
         """
+        print(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
         self.go(-1 * speed, -1 * speed)
         while True:
             test = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            time.sleep(2)
+            print(test)
             if test > inches:
+                print(test)
                 break
         self.right_motor.turn_off()
         self.left_motor.turn_off()
