@@ -179,7 +179,8 @@ class DriveSystem(object):
             test = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if test < inches:
                 break
-        self.stop()
+        self.right_motor.turn_off()
+        self.left_motor.turn_off()
 
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
@@ -192,7 +193,8 @@ class DriveSystem(object):
             test = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if test > inches:
                 break
-        self.stop()
+        self.right_motor.turn_off()
+        self.left_motor.turn_off()
 
     def go_until_distance_is_within(self, delta, inches, speed):
         """
@@ -211,7 +213,8 @@ class DriveSystem(object):
                 test = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
                 if test > (inches - delta) and test < (inches + delta):
                     break
-            self.stop()
+            self.right_motor.turn_off()
+            self.left_motor.turn_off()
 
         if start < inches + delta:
             self.go(-1 * speed, -1 * speed)
@@ -219,7 +222,8 @@ class DriveSystem(object):
                 test = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
                 if test > (inches - delta) and test < (inches + delta):
                     break
-            self.stop()
+            self.left_motor.turn_off()
+            self.right_motor.turn_off()
 
 
     # -------------------------------------------------------------------------
