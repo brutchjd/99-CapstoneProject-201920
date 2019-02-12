@@ -314,6 +314,11 @@ class DriveSystem(object):
         Requires that the user train the camera on the color of the object.
         """
         self.right_motor.turn_on(speed)
+        while True:
+            blob_area = self.sensor_system.camera.get_biggest_blob().width * self.sensor_system.camera.get_biggest_blob().height
+            if blob_area > area:
+                break
+
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """
         Spins counter-clockwise at the given speed until the camera sees an object
@@ -321,6 +326,10 @@ class DriveSystem(object):
         Requires that the user train the camera on the color of the object.
         """
         self.left_motor.turn_on(speed)
+        while True:
+            blob_area = self.sensor_system.camera.get_biggest_blob().width * self.sensor_system.camera.get_biggest_blob().height
+            if blob_area > area:
+                break
 
 ###############################################################################
 #    ArmAndClaw
