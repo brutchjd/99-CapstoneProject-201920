@@ -222,7 +222,6 @@ class DriveSystem(object):
             self.stop()
 
 
-
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
     # -------------------------------------------------------------------------
