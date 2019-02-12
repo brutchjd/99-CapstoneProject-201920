@@ -154,25 +154,41 @@ def get_drive_frame(window, mqtt_sender):
 
     frame_label = ttk.Label(frame, text="Drive System")
     speed_label = ttk.Label(frame, text="Enter speed:")
+    inches_label = ttk.Label(frame, text="Enter Inches:")
+    delta_label = ttk.Label(frame, text="Enter Delta:")
     seconds_button = ttk.Button(frame, text='Straight Using Seconds')
     inches_button = ttk.Button(frame, text='Straight Using Inches')
     encoder_button = ttk.Button(frame, text='Straight Using Encoder')
+    greaterthan_button = ttk.Button(frame, text='Straight Until Greater Than')
+    lessthan_button = ttk.Button(frame, text='Straight Until Less Than')
+    within_button = ttk.Button(frame, text='Straight Until Within')
 
-    seconds_entry = ttk.Entry(frame, width=8)
-    inches_entry = ttk.Entry(frame, width=8)
-    encoder_entry = ttk.Entry(frame, width=8)
-    speed_entry = ttk.Entry(frame, width=8)
+    seconds_entry = ttk.Entry(frame, width=12)
+    inches_entry = ttk.Entry(frame, width=12)
+    encoder_entry = ttk.Entry(frame, width=12)
+    speed_entry = ttk.Entry(frame, width=12)
+    inches_entry = ttk.Entry(frame, width=12)
+    inches2_entry = ttk.Entry(frame, width=12)
+    delta_enrty = ttk.Entry(frame, width=12)
 
     frame_label.grid(row=0, column=1)
-    speed_label.grid(row=4, column=0)
-    speed_entry.grid(row=4, column=1)
+    speed_label.grid(row=8, column=0)
+    inches_label.grid(row=6, column=0)
+    delta_label.grid(row=7, column=0)
+
+    speed_entry.grid(row=8, column=1)
     seconds_button.grid(row=1, column=0)
     inches_button.grid(row=2, column=0)
     encoder_button.grid(row=3, column=0)
+    greaterthan_button.grid(row=5, column=0)
+    lessthan_button.grid(row=5, column=1)
+    within_button.grid(row=5, column=2)
 
     seconds_entry.grid(row=1, column=1)
     inches_entry.grid(row=2, column=1)
     encoder_entry.grid(row=3, column=1)
+    inches2_entry.grid(row=6, column=1)
+    delta_enrty.grid(row=7, column=2)
 
     seconds_button["command"] = lambda: handle_seconds(seconds_entry, speed_entry, mqtt_sender)
     inches_button["command"] = lambda: handle_inches(inches_entry, speed_entry, mqtt_sender)
@@ -187,7 +203,7 @@ def get_sound_frame(window, mqtt_sender):
 
     frame_label = ttk.Label(frame, text="Sound System")
     beep_button = ttk.Button(frame, text='Beep')
-    frequency_button = ttk.Button(frame, text='Frequency')
+    frequency_button = ttk.Button(frame, text='Tone')
     speak_button = ttk.Button(frame, text='Speak')
 
     beep_entry = ttk.Entry(frame, width=12)
@@ -357,6 +373,20 @@ def handle_encoder(encoder_entry, speed_entry, mqtt_sender):
     print('Drive Straight (Encoder)', encoder_entry.get(), speed_entry.get())
     mqtt_sender.send_message('encoder', [encoder_entry.get(), speed_entry.get()])
 
+
+def handle_greaterthan(inches2_entry, speed_entry, mqtt_sender):
+    print('Drive Backward Until Greater Than', inches2_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('greaterthan', [inches2_entry.get(), speed_entry.get()])
+
+
+def handle_lessthan(inches2_entry, speed_entry, mqtt_sender):
+    print('Drive Forward Until Less Than', inches2_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('lessthan', [inches2_entry.get(), speed_entry.get()])
+
+
+def handle_within(delta_entry, inches2_entry, speed_entry, mqtt_sender):
+    print('Drive Straight Until Within', delta_entry.get(), inches2_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('within', [delta_entry.get(), inches2_entry.get(), speed_entry.get()])
 
 ##############################################################################
 # Handlers for Buttons in the Sound System frame.
