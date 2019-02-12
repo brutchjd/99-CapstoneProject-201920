@@ -81,3 +81,15 @@ class Receiver(object):
     def frequency(self, frequency, duration):
         print('Got Frequency', frequency, duration)
         self.robot.sound_system.tone_maker.play_tone(int(frequency), int(duration))
+
+    def lessthan(self, inches, speed):
+        print('Got Less Than', inches, speed)
+        self.robot.drive_system.go_forward_until_distance_is_less_than(int(inches), int(speed))
+
+    def greaterthan(self, inches, speed):
+        print('Got Greater Than', inches, speed)
+        self.robot.drive_system.go_backward_until_distance_is_greater_than(int(inches), int(speed))
+
+    def within(self, delta, inches, speed):
+        print('Got Within', delta, inches, speed)
+        self.robot.drive_system.go_until_distance_is_within(float(delta), int(inches), int(speed))
