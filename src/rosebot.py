@@ -171,6 +171,7 @@ class DriveSystem(object):
         """
         color_sensor = ev3.ColorSensor()
         found_color = color_sensor.color
+        color = color.get_color
         self.go(speed, speed)
         while True:
             if found_color == color:
@@ -187,6 +188,7 @@ class DriveSystem(object):
         """
         color_sensor = ev3.ColorSensor()
         found_color = color_sensor.color
+        color = color.get_color
         self.go(speed, speed)
         while True:
             if found_color != color:
