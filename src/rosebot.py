@@ -136,9 +136,9 @@ class DriveSystem(object):
         by the color_sensor is less than the given intensity.
         """
         color_sensor = ev3.ColorSensor()
-        found_intensity = color_sensor.reflected_light_intensity
         self.go(speed, speed)
         while True:
+            found_intensity = color_sensor.reflected_light_intensity
             if found_intensity < intensity:
                 self.stop()
                 break
@@ -149,9 +149,9 @@ class DriveSystem(object):
         by the color_sensor is greater than the given intensity.
         """
         color_sensor = ev3.ColorSensor()
-        found_intensity = color_sensor.reflected_light_intensity
         self.go(speed, speed)
         while True:
+            found_intensity = color_sensor.reflected_light_intensity
             if found_intensity > intensity:
                 self.stop()
                 break
@@ -170,10 +170,12 @@ class DriveSystem(object):
         the color sensor's color.
         """
         color_sensor = ev3.ColorSensor()
-        found_color = color_sensor.color
-        color = color.get_color
         self.go(speed, speed)
         while True:
+            if type(color) is str:
+                found_color = color_sensor.get_color_as_name
+            if type(color) is int:
+                found_color = color_sensor.get_color
             if found_color == color:
                 self.stop()
                 break
@@ -187,10 +189,12 @@ class DriveSystem(object):
         listed in the ColorSensor class.
         """
         color_sensor = ev3.ColorSensor()
-        found_color = color_sensor.color
-        color = color.get_color
         self.go(speed, speed)
         while True:
+            if type(color) is str:
+                found_color = color_sensor.get_color_as_name
+            if type(color) is int:
+                found_color = color_sensor.get_color
             if found_color != color:
                 self.stop()
                 break
