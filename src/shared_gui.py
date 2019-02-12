@@ -169,7 +169,7 @@ def get_drive_frame(window, mqtt_sender):
     speed_entry = ttk.Entry(frame, width=12)
     inches_entry = ttk.Entry(frame, width=12)
     inches2_entry = ttk.Entry(frame, width=12)
-    delta_enrty = ttk.Entry(frame, width=12)
+    delta_entry = ttk.Entry(frame, width=12)
 
     frame_label.grid(row=0, column=1)
     speed_label.grid(row=8, column=0)
@@ -188,11 +188,14 @@ def get_drive_frame(window, mqtt_sender):
     inches_entry.grid(row=2, column=1)
     encoder_entry.grid(row=3, column=1)
     inches2_entry.grid(row=6, column=1)
-    delta_enrty.grid(row=7, column=2)
+    delta_entry.grid(row=7, column=2)
 
     seconds_button["command"] = lambda: handle_seconds(seconds_entry, speed_entry, mqtt_sender)
     inches_button["command"] = lambda: handle_inches(inches_entry, speed_entry, mqtt_sender)
     encoder_button["command"] = lambda: handle_encoder(encoder_entry, speed_entry, mqtt_sender)
+    greaterthan_button["command"] = lambda: handle_greaterthan(inches2_entry, speed_entry, mqtt_sender)
+    lessthan_button["command"] = lambda: handle_lessthan(inches2_entry, speed_entry, mqtt_sender)
+    within_button["command"] = lambda: handle_within(delta_entry, inches2_entry, speed_entry, mqtt_sender)
 
     return frame
 
