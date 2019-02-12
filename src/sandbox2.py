@@ -8,9 +8,9 @@ import shared_gui_delegate_on_robot as rec
 
 def main():
     robot = rosebot.RoseBot()
-    robot.drive_system.go_forward_until_distance_is_less_than(24, 50)
-    robot.drive_system.go_backward_until_distance_is_greater_than(36, 50)
-    robot.drive_system.go_until_distance_is_within(4, 24, 50)
+    robot.drive_system.go_forward_until_distance_is_less_than(75, 50)
+    robot.drive_system.go_backward_until_distance_is_greater_than(100, 50)
+    robot.drive_system.go_until_distance_is_within(5, 65, 50)
 
 
 def test():
