@@ -165,6 +165,8 @@ def get_drive_frame(window, mqtt_sender):
     display_camera_data_button = ttk.Button(frame, text='Print Camera Data')
     camera_clockwise = ttk.Button(frame, text='Spin Clockwise Till Object Seen')
     camera_counterclockwise = ttk.Button(frame, text='Spin Counterclockwise Till Object Seen')
+    area_label = ttk.Label(frame, text='Enter Smallest Area of object to detect:')
+
 
     seconds_entry = ttk.Entry(frame, width=12)
     inches_entry = ttk.Entry(frame, width=12)
@@ -173,6 +175,7 @@ def get_drive_frame(window, mqtt_sender):
     inches_entry = ttk.Entry(frame, width=12)
     inches2_entry = ttk.Entry(frame, width=12)
     delta_entry = ttk.Entry(frame, width=12)
+    camera_area_entry = ttk.Entry(frame, width=12)
 
 
     frame_label.grid(row=0, column=1)
@@ -194,12 +197,22 @@ def get_drive_frame(window, mqtt_sender):
     inches2_entry.grid(row=6, column=1)
     delta_entry.grid(row=7, column=2)
 
+    display_camera_data_button.grid(row=9, column=0)
+    camera_clockwise.grid(row=9, column=1)
+    camera_counterclockwise.grid(row=9, column=2)
+    camera_area_entry.grid(row=10, column=1)
+    area_label.grid(row=10, column=0)
+
+
     seconds_button["command"] = lambda: handle_seconds(seconds_entry, speed_entry, mqtt_sender)
     inches_button["command"] = lambda: handle_inches(inches_entry, speed_entry, mqtt_sender)
     encoder_button["command"] = lambda: handle_encoder(encoder_entry, speed_entry, mqtt_sender)
     greaterthan_button["command"] = lambda: handle_greaterthan(inches2_entry, speed_entry, mqtt_sender)
     lessthan_button["command"] = lambda: handle_lessthan(inches2_entry, speed_entry, mqtt_sender)
     within_button["command"] = lambda: handle_within(delta_entry, inches2_entry, speed_entry, mqtt_sender)
+    display_camera_data_button['command'] = lambda: handle_camera_data(mqtt_sender)
+    camera_counterclockwise['command'] = lambda: handle_camera_counterclockwise(camera_area_entry, speed_entry, mqtt_sender)
+    camera_clockwise['command'] = lambda: handle_camera_clockwise(camera_area_entry, speed_entry, mqtt_sender)
 
     return frame
 
@@ -396,6 +409,19 @@ def handle_within(delta_entry, inches2_entry, speed_entry, mqtt_sender):
     print('Drive Straight Until Within', delta_entry.get(), inches2_entry.get(), speed_entry.get())
     mqtt_sender.send_message('within', [delta_entry.get(), inches2_entry.get(), speed_entry.get()])
 
+def handle_camera_data(mqtt_sender):
+    print('Print Camera Data')
+    mqtt_sender.send_message('camera_data')
+
+def handle_camera_counterclockwise(mqtt_sender, area_entry, speed_entry):
+    print('Turn counter clockwise till object detected', area_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('camera_counterclockwise', [area_entry.get(), speed_entry.get()])
+
+def handle_camera_clockwise(mqtt_sender, area_entry, speed_entry):
+    print('Turn clockwise till object detected', area_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('camera_clockwise', [area_entry.get(), speed_entry.get()])
+
+
 ##############################################################################
 # Handlers for Buttons in the Sound System frame.
 ##############################################################################
@@ -412,3 +438,4 @@ def handle_frequency(frequency_entry, duration_entry, mqtt_sender):
 def handle_speak(speak_entry, mqtt_sender):
     print('Saying:', speak_entry.get())
     mqtt_sender.send_message('speak', [speak_entry.get()])
+

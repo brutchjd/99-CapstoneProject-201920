@@ -94,6 +94,14 @@ class Receiver(object):
         print('Got Within', delta, inches, speed)
         self.robot.drive_system.go_until_distance_is_within(float(delta), int(inches), int(speed))
 
+    def camera_data(self):
+        print('Got Camera Data')
+        self.robot.drive_system.display_camera_data()
+
+    def camera_counterclockwise(self, area, speed):
+        print('Got Camera Counterclockwise')
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(int(speed), int(area))
+
     def m2_pickup_tone(self):
         print('Got Pick Up With Tones')
         m2_extra.m2_pickup()
