@@ -6,7 +6,7 @@
     and Jared Brutcher, Nathaniel Craan, Daniel Decker.
   Winter term, 2018-2019.
 """
-
+import m2_extra
 
 class Receiver(object):
 
@@ -96,3 +96,4 @@ class Receiver(object):
 
     def m2_pickup_tone(self):
         print('Got Pick Up With Tones')
+        m2_extra.m2_pickup()
