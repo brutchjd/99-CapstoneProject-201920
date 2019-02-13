@@ -93,3 +93,6 @@ class Receiver(object):
     def within(self, delta, inches, speed):
         print('Got Within', delta, inches, speed)
         self.robot.drive_system.go_until_distance_is_within(float(delta), int(inches), int(speed))
+
+    def m2_pickup_tone(self):
+        print('Got Pickup With Tone')
