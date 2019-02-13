@@ -95,4 +95,4 @@ class Receiver(object):
         self.robot.drive_system.go_until_distance_is_within(float(delta), int(inches), int(speed))
 
     def m2_pickup_tone(self):
-        print('Got Pickup With Tone')
+        print('Got Pick Up With Tones')
