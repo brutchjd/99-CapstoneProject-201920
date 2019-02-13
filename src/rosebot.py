@@ -135,12 +135,13 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
-        color_sensor = ev3.ColorSensor()
         self.go(speed, speed)
+        print('start')
         while True:
-            found_intensity = color_sensor.reflected_light_intensity
+            found_intensity = self.sensor_system.color_sensor.get_reflected_light_intensity()
             if found_intensity < intensity:
                 self.stop()
+                print('stop')
                 break
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
@@ -148,12 +149,13 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
-        color_sensor = ev3.ColorSensor()
         self.go(speed, speed)
+        print('start')
         while True:
-            found_intensity = color_sensor.reflected_light_intensity
+            found_intensity = self.sensor_system.color_sensor.get_reflected_light_intensity()
             if found_intensity > intensity:
                 self.stop()
+                print('stop')
                 break
 
     def go_straight_until_color_is(self, color, speed):
@@ -169,14 +171,11 @@ class DriveSystem(object):
         then use the   get_color_as_name   method to access
         the color sensor's color.
         """
-        color_sensor = ev3.ColorSensor()
         self.go(speed, speed)
+        print('start')
         while True:
-            if type(color) is str:
-                found_color = color_sensor.get_color_as_name
-            if type(color) is int:
-                found_color = color_sensor.get_color
-            if found_color == color:
+            if self.sensor_system.color_sensor.get_color_as_name() == color:
+                print('stop')
                 self.stop()
                 break
 
@@ -188,15 +187,12 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
-        color_sensor = ev3.ColorSensor()
         self.go(speed, speed)
+        print('start')
         while True:
-            if type(color) is str:
-                found_color = color_sensor.get_color_as_name
-            if type(color) is int:
-                found_color = color_sensor.get_color
-            if found_color != color:
+            if self.sensor_system.color_sensor.get_color_as_name() != color:
                 self.stop()
+                print('stop')
                 break
 
     # -------------------------------------------------------------------------
