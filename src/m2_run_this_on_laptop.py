@@ -84,9 +84,14 @@ def get_proximity_frame(window, mqtt_sender):
     frame_label.grid(row=0, column=1)
     pickup_button.grid(row=1, column=1)
 
-    pickup_button["command"] = lambda: shared_gui_delegate_on_robot.Receiver.m2_pickup_tone(mqtt_sender)
+    pickup_button["command"] = lambda: handle_pickup(mqtt_sender)
 
     return frame
+
+
+def handle_pickup(mqtt_sender):
+    print('Pickup')
+    mqtt_sender.send_message('m2_pickup_tone')
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame):
