@@ -19,11 +19,11 @@ def main():
     #test_raise_arm()
     #test_calibrate_arm()
     #test_lower_arm()
-    #real_demonstration()
+    real_demonstration()
     #test_move_arm_to_position()
     #test_go_straight_for_inches_using_time()
     #test_go_straight_for_inches_using_encoder()
-    test_display_camera_data()
+    #test_display_camera_data()
 
 
 def test_raise_arm():
