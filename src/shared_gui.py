@@ -162,6 +162,9 @@ def get_drive_frame(window, mqtt_sender):
     greaterthan_button = ttk.Button(frame, text='Straight Until Greater Than')
     lessthan_button = ttk.Button(frame, text='Straight Until Less Than')
     within_button = ttk.Button(frame, text='Straight Until Within')
+    display_camera_data_button = ttk.Button(frame, text='Print Camera Data')
+    camera_clockwise = ttk.Button(frame, text='Spin Clockwise Till Object Seen')
+    camera_counterclockwise = ttk.Button(frame, text='Spin Counterclockwise Till Object Seen')
 
     seconds_entry = ttk.Entry(frame, width=12)
     inches_entry = ttk.Entry(frame, width=12)
@@ -170,6 +173,7 @@ def get_drive_frame(window, mqtt_sender):
     inches_entry = ttk.Entry(frame, width=12)
     inches2_entry = ttk.Entry(frame, width=12)
     delta_entry = ttk.Entry(frame, width=12)
+
 
     frame_label.grid(row=0, column=1)
     speed_label.grid(row=8, column=0)
@@ -228,6 +232,7 @@ def get_sound_frame(window, mqtt_sender):
     beep_button["command"] = lambda: handle_beep(beep_entry, mqtt_sender)
 
     return frame
+
 
 
 ###############################################################################
