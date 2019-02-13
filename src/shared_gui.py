@@ -413,11 +413,11 @@ def handle_camera_data(mqtt_sender):
     print('Print Camera Data')
     mqtt_sender.send_message('camera_data')
 
-def handle_camera_counterclockwise(mqtt_sender, area_entry, speed_entry):
+def handle_camera_counterclockwise(area_entry, speed_entry, mqtt_sender):
     print('Turn counter clockwise till object detected', area_entry.get(), speed_entry.get())
     mqtt_sender.send_message('camera_counterclockwise', [area_entry.get(), speed_entry.get()])
 
-def handle_camera_clockwise(mqtt_sender, area_entry, speed_entry):
+def handle_camera_clockwise(area_entry, speed_entry, mqtt_sender):
     print('Turn clockwise till object detected', area_entry.get(), speed_entry.get())
     mqtt_sender.send_message('camera_clockwise', [area_entry.get(), speed_entry.get()])
 
