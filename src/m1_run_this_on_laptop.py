@@ -51,13 +51,13 @@ def main():
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
 
-
+    find_object_frame = get_find_object_frame(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
 
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -75,12 +75,43 @@ def get_shared_frames(main_frame, mqtt_sender):
 
     return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
 
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
     drive_frame.grid(row=0, column=1)
     sound_frame.grid(row=1, column=1)
+    find_object_frame.grid(row=3, column=0)
+
+def get_find_object_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text='Find Object')
+    clockwise_button = ttk.Button(frame, text='Turn Clockwise and Pick Up Object')
+    counterclockwise_button = ttk.Button(frame, text='Turn Counterclockwise and Pick Up Object')
+
+    speed_label = ttk.Label(frame, text='Enter Speed:')
+    speed_entry = ttk.Entry(frame)
+
+    area_label = ttk.Label(frame, text='Enter Min Area:')
+    area_entry = ttk.Entry(frame)
+
+    frame_label.grid(row=0, column=1)
+    clockwise_button.grid(row=1, column=0)
+    counterclockwise_button.grid(row=1, column=2)
+    speed_label.grid(row=2, column=0)
+    speed_entry.grid(row=2, column=1)
+    area_label.grid(row=3, column=0)
+    area_entry.grid(row=3, column=1)
+
+    clockwise_button['command'] = lambda: handle_clockwise(speed_entry, area_entry, mqtt_sender)
+
+    return frame
+
+def handle_clockwise(speed_entry, area_entry, mqtt_sender):
+    print('Turn Clockwise and find Object')
+    mqtt_sender.send_message('clockwise_find_object', [speed_entry.get(), area_entry.get()])
 
 
 # -----------------------------------------------------------------------------
