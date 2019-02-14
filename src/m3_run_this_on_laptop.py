@@ -92,7 +92,7 @@ def get_second_individual_frame(window, mqtt_sender):
     speed_label = ttk.Label(frame, text='insert_speed')
     speed_entry = ttk.Entry(frame)
 
-    frame_label.grid(row=0, column=0)
+    frame_label.grid(row=0, column=2)
     less_intensity_button.grid(row=1, column=1)
     more_intensity_button.grid(row=2, column=1)
     is_color_button.grid(row=3, column=1)
