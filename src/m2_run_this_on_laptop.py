@@ -87,7 +87,7 @@ def get_proximity_frame(window, mqtt_sender):
     pickup2_button.grid(row=2, column=1)
 
     pickup_button["command"] = lambda: handle_pickup(mqtt_sender)
-    pickup2_button["command"] = lambda: handle_pickup(mqtt_sender)
+    pickup2_button["command"] = lambda: handle_pickup_beep(mqtt_sender)
 
     return frame
 
