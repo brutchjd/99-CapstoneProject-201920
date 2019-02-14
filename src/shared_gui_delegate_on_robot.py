@@ -111,6 +111,10 @@ class Receiver(object):
         print('Got Pick Up With Tones')
         m2_extra.m2_pickup()
 
+    def m2_pickup_beep(self):
+        print('Got Pick Up with Beeps')
+        m2_extra.m2_pickup_beep()
+
     def clockwise_find_object(self, speed, area):
         print('Got Clockwise Find Object')
         m1_extra.clockwise_find_object(self.robot, int(speed), int(area))

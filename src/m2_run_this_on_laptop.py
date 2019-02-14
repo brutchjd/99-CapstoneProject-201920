@@ -77,14 +77,17 @@ def get_individual_frame(main_frame, mqtt_sender):
 def get_proximity_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
-    frame_label = ttk.Label(frame, text='Pick Up with Tones')
+    frame_label = ttk.Label(frame, text='Pick Up')
 
-    pickup_button = ttk.Button(frame, text='Pick Up')
+    pickup_button = ttk.Button(frame, text='Pick Up Tone')
+    pickup2_button = ttk.Button(frame, text='Pick Up Beep')
 
     frame_label.grid(row=0, column=1)
     pickup_button.grid(row=1, column=1)
+    pickup2_button.grid(row=2, column=1)
 
     pickup_button["command"] = lambda: handle_pickup(mqtt_sender)
+    pickup2_button["command"] = lambda: handle_pickup(mqtt_sender)
 
     return frame
 
@@ -92,6 +95,11 @@ def get_proximity_frame(window, mqtt_sender):
 def handle_pickup(mqtt_sender):
     print('Pickup')
     mqtt_sender.send_message('m2_pickup_tone')
+
+
+def handle_pickup_beep(mqtt_sender):
+    print('Pickup')
+    mqtt_sender.send_message('m2_pickup_beep')
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame):
