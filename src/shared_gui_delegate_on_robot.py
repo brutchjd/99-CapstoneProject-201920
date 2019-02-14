@@ -115,4 +115,7 @@ class Receiver(object):
         print('Got Clockwise Find Object')
         m1_extra.clockwise_find_object(self.robot, int(speed), int(area))
 
+    def counterclockwise_find_object(self, speed, area):
+        print('Got Clockwise Find Object')
+        m1_extra.counterclockwise_find_object(self.robot, int(speed), int(area))
 

@@ -106,6 +106,7 @@ def get_find_object_frame(window, mqtt_sender):
     area_entry.grid(row=3, column=1)
 
     clockwise_button['command'] = lambda: handle_clockwise(speed_entry, area_entry, mqtt_sender)
+    counterclockwise_button['command'] = lambda: handle_counterclockwise(speed_entry, area_entry, mqtt_sender)
 
     return frame
 
@@ -113,6 +114,9 @@ def handle_clockwise(speed_entry, area_entry, mqtt_sender):
     print('Turn Clockwise and find Object')
     mqtt_sender.send_message('clockwise_find_object', [speed_entry.get(), area_entry.get()])
 
+def handle_counterclockwise(speed_entry, area_entry, mqtt_sender):
+    print('Turn Clockwise and find Object')
+    mqtt_sender.send_message('clockwise_find_object', [speed_entry.get(), area_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
