@@ -123,3 +123,6 @@ class Receiver(object):
         print('Got Clockwise Find Object')
         m1_extra.counterclockwise_find_object(self.robot, int(speed), int(area))
 
+    def m1_pickup_LED(self):
+        print('Got Pick Up with LEDs')
+        m1_extra.go_until_distance_is_within_LED(self.robot)
