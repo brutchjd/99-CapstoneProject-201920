@@ -46,15 +46,17 @@ def main():
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     proximity_frame = get_individual_frame(main_frame, mqtt_sender)
+    color_frame = get_second_individual_frame(main_frame, mqtt_sender)
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
     root.mainloop()
+
 
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
@@ -69,6 +71,11 @@ def get_shared_frames(main_frame, mqtt_sender):
 def get_individual_frame(main_frame, mqtt_sender):
     proximity_frame = get_proximity_frame(main_frame, mqtt_sender)
     return proximity_frame
+
+
+def get_second_individual_frame(main_frame, mqtt_sender):
+    color_frame = get_color_frame(main_frame, mqtt_sender)
+    return color_frame
 
 
 def get_proximity_frame(window, mqtt_sender):
@@ -86,9 +93,29 @@ def get_proximity_frame(window, mqtt_sender):
     return frame
 
 
+def get_color_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
+    frame.grid()
+    frame_label = ttk.Label(frame, text='Color')
+
+    color_button = ttk.Button(frame, text='Choose Color')
+
+    frame_label.grid(row=0, column=1)
+    color_button.grid(row=1, column=1)
+
+    color_button["command"] = lambda: handle_color(mqtt_sender)
+
+    return frame
+
+
 def handle_pickup(mqtt_sender):
     print('Pickup')
     mqtt_sender.send_message('m2_pickup_tone')
+
+
+def handle_color(mqtt_sender):
+    print('Color')
+    mqtt_sender.send_message('m3_color')
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame):
@@ -98,7 +125,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     drive_frame.grid(row=0, column=1)
     sound_frame.grid(row=1, column=1)
     proximity_frame.grid(row=2, column=1)
-    # color_frame.grid(row=2, column=2)
+    color_frame.grid(row=2, column=2)
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
