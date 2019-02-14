@@ -108,6 +108,27 @@ def get_color_frame(window, mqtt_sender):
     return frame
 
 
+def intensity_button1(intensity_entry, speed_entry, mqtt_sender):
+    print('Drive Straight Until Intensity Less Than', intensity_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
+
+
+def intensity_button2(intensity_entry, speed_entry, mqtt_sender):
+    print('Drive Straight Until Intensity Graeter Than', intensity_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
+
+
+def color_button1(color_entry, speed_entry, mqtt_sender):
+    print('Straight Until Color Is', color_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('color', [color_entry.get(), speed_entry.get()])
+
+
+def color_button2(color_entry, speed_entry, mqtt_sender):
+    print('Straight Until Color Is Not', color_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('color', [color_entry.get(), color_entry.get()])
+
+
+
 def handle_pickup(mqtt_sender):
     print('Pickup')
     mqtt_sender.send_message('m2_pickup_tone')
@@ -118,7 +139,7 @@ def handle_color(mqtt_sender):
     mqtt_sender.send_message('m3_color')
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame):
     teleop_frame.grid(row=0, column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
