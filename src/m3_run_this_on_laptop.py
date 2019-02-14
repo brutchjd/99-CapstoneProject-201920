@@ -114,7 +114,7 @@ def intensity_button1(intensity_entry, speed_entry, mqtt_sender):
 
 
 def intensity_button2(intensity_entry, speed_entry, mqtt_sender):
-    print('Drive Straight Until Intensity Graeter Than', intensity_entry.get(), speed_entry.get())
+    print('Drive Straight Until Intensity Greater Than', intensity_entry.get(), speed_entry.get())
     mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
 
 
@@ -126,7 +126,6 @@ def color_button1(color_entry, speed_entry, mqtt_sender):
 def color_button2(color_entry, speed_entry, mqtt_sender):
     print('Straight Until Color Is Not', color_entry.get(), speed_entry.get())
     mqtt_sender.send_message('color', [color_entry.get(), color_entry.get()])
-
 
 
 def handle_pickup(mqtt_sender):
