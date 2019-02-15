@@ -40,13 +40,12 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, color_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     proximity_frame = get_individual_frame(main_frame, mqtt_sender)
-    color_frame = get_second_individual_frame(main_frame, mqtt_sender)
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
@@ -64,52 +63,15 @@ def get_shared_frames(main_frame, mqtt_sender):
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
     drive_frame = shared_gui.get_drive_frame(main_frame, mqtt_sender)
     sound_frame = shared_gui.get_sound_frame(main_frame, mqtt_sender)
+    color_frame = shared_gui.get_color_frame(main_frame, mqtt_sender)
 
-    return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
+    return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, color_frame
 
 
 def get_individual_frame(main_frame, mqtt_sender):
     proximity_frame = get_proximity_frame(main_frame, mqtt_sender)
     return proximity_frame
 
-
-def get_second_individual_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
-    frame.grid()
-
-    frame_label = ttk.Label(frame, text='Color Stuff')
-    less_intensity_button = ttk.Button(frame, text='less_intensity')
-    more_intensity_button = ttk.Button(frame, text='more_intensity')
-    is_color_button = ttk.Button(frame, text='same_color')
-    different_color = ttk.Button(frame, text='different_color')
-
-    intensity_label = ttk.Label(frame, text='insert_intensity')
-    intensity_entry = ttk.Entry(frame)
-
-    color_label = ttk.Label(frame, text='insert_color')
-    color_entry = ttk.Entry(frame)
-
-    speed_label = ttk.Label(frame, text='insert_speed')
-    speed_entry = ttk.Entry(frame)
-
-    frame_label.grid(row=0, column=2)
-    less_intensity_button.grid(row=1, column=1)
-    more_intensity_button.grid(row=2, column=1)
-    is_color_button.grid(row=3, column=1)
-    different_color.grid(row=4, column=1)
-    intensity_label.grid(row=1, column=2)
-    color_label.grid(row=3, column=2)
-    intensity_entry.grid(row=1, column=3)
-    color_entry.grid(row=3, column=3)
-    speed_label.grid(row=4, column=2)
-    speed_entry.grid(row=4, column=3)
-
-    less_intensity_button["command"] = lambda: intensity_button1(intensity_entry, speed_entry, mqtt_sender)
-    more_intensity_button["command"] = lambda: intensity_button2(intensity_entry, speed_entry, mqtt_sender)
-    is_color_button["command"] = lambda: color_button1(color_entry, speed_entry, mqtt_sender)
-    less_intensity_button["command"] = lambda: color_button2(color_entry, speed_entry, mqtt_sender)
-
-    return frame
 
 
 def get_proximity_frame(window, mqtt_sender):
@@ -125,41 +87,6 @@ def get_proximity_frame(window, mqtt_sender):
     pickup_button["command"] = lambda: handle_pickup(mqtt_sender)
 
     return frame
-
-
-def get_color_frame(window, mqtt_sender):
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
-    frame.grid()
-    frame_label = ttk.Label(frame, text='Color')
-
-    color_button = ttk.Button(frame, text='Choose Color')
-
-    frame_label.grid(row=0, column=1)
-    color_button.grid(row=1, column=1)
-
-    color_button["command"] = lambda: get_second_individual_frame(window, mqtt_sender)
-
-    return frame
-
-
-def intensity_button1(intensity_entry, speed_entry, mqtt_sender):
-    print('Drive Straight Until Intensity Less Than', intensity_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
-
-
-def intensity_button2(intensity_entry, speed_entry, mqtt_sender):
-    print('Drive Straight Until Intensity Greater Than', intensity_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
-
-
-def color_button1(color_entry, speed_entry, mqtt_sender):
-    print('Straight Until Color Is', color_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('color', [color_entry.get(), speed_entry.get()])
-
-
-def color_button2(color_entry, speed_entry, mqtt_sender):
-    print('Straight Until Color Is Not', color_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('color', [color_entry.get(), color_entry.get()])
 
 
 def handle_pickup(mqtt_sender):

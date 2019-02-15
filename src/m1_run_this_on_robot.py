@@ -9,6 +9,7 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot as rec
+import m1_extra
 
 def main():
     """
@@ -24,6 +25,7 @@ def main():
     #test_go_straight_for_inches_using_time()
     #test_go_straight_for_inches_using_encoder()
     #test_display_camera_data()
+    #test_cycle_LEDs()
 
 
 def test_raise_arm():
@@ -101,6 +103,12 @@ def test_display_camera_data():
     robot = rosebot.RoseBot()
     print('Testing display camera data:')
     robot.drive_system.display_camera_data()
+
+def test_cycle_LEDs():
+    robot = rosebot.RoseBot()
+    for k in range(20):
+        m1_extra.cycle_LEDs(robot, 0.5, 5, 20-k)
+
 
 
 

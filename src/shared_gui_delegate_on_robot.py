@@ -107,9 +107,13 @@ class Receiver(object):
         print('Got Camera Clockwise')
         self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
 
-    def m2_pickup_tone(self):
+    def m2_pickup_tone(self, freq, rate):
         print('Got Pick Up With Tones')
-        m2_extra.m2_pickup()
+        m2_extra.m2_pickup(int(freq), int(rate))
+
+    def m2_pickup_beep(self, rate):
+        print('Got Pick Up with Beeps')
+        m2_extra.m2_pickup_beep(int(rate))
 
     def clockwise_find_object(self, speed, area):
         print('Got Clockwise Find Object')
@@ -119,3 +123,14 @@ class Receiver(object):
         print('Got Clockwise Find Object')
         m1_extra.counterclockwise_find_object(self.robot, int(speed), int(area))
 
+    def m1_pickup_LED(self, rateincrease, intitialrate):
+        print('Got Pick Up with LEDs')
+        m1_extra.m1_pick_up_LED(self.robot, 80, float(rateincrease), float(intitialrate))
+
+    def m2_camera_clockwise(self, speed, area):
+        print('Got Find and Pick Up')
+        m2_extra.m2_camera_clockwise(int(speed), int(area))
+
+    def m2_camera_counterclockwise(self, speed, area):
+        print('Got Find and Pick Up')
+        m2_extra.m2_camera_counterclockwise(int(speed), int(area))
