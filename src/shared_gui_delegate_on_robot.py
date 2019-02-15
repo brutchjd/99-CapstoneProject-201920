@@ -128,8 +128,10 @@ class Receiver(object):
         m1_extra.pick_up_LED(self.robot, 80, int(rateincrease), int(intitialrate))
         m1_extra.pick_up_LED(self.robot, int(rateincrease), int(intitialrate))
 
-    def m2_camera_clockwise(self):
-        pass
+    def m2_camera_clockwise(self, speed, area):
+        print('Got Find and Pick Up')
+        m2_extra.m2_camera_clockwise(int(speed), int(area))
 
-    def m2_camera_counterclockwise(self):
-        pass
+    def m2_camera_counterclockwise(self, speed, area):
+        print('Got Find and Pick Up')
+        m2_extra.m2_camera_counterclockwise(int(speed), int(area))
