@@ -79,6 +79,9 @@ def get_proximity_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
     frame_label = ttk.Label(frame, text='Pick Up')
+    freq_label = ttk.Label(frame, text='Frequency:')
+    rate_label = ttk.Label(frame, text='Rate:')
+
     rate_entry = ttk.Entry(frame, width=12)
     freq_entry = ttk.Entry(frame, width=12)
 
@@ -87,8 +90,11 @@ def get_proximity_frame(window, mqtt_sender):
     pickup3_button = ttk.Button(frame, text='Pick UP LED')
 
     frame_label.grid(row=0, column=1)
+    freq_label.grid(row=0, column=2)
+    rate_label.grid(row=0, column=3)
     rate_entry.grid(row=1, column=3)
     freq_entry.grid(row=1, column=2)
+
     pickup_button.grid(row=1, column=1)
     pickup2_button.grid(row=2, column=1)
     pickup3_button.grid(row=3, column=1)
@@ -106,12 +112,12 @@ def handle_pickup_led(mqtt_sender):
 
 
 def handle_pickup(freq_entry, rate_entry, mqtt_sender):
-    print('Pickup')
-    mqtt_sender.send_message('m2_pickup_tone', [freq_entry.get, rate_entry.get()])
+    print('Pickup', freq_entry.get(), rate_entry.get())
+    mqtt_sender.send_message('m2_pickup_tone', [freq_entry.get(), rate_entry.get()])
 
 
 def handle_pickup_beep(rate_entry, mqtt_sender):
-    print('Pickup')
+    print('Pickup', rate_entry.get())
     mqtt_sender.send_message('m2_pickup_beep', [rate_entry.get()])
 
 

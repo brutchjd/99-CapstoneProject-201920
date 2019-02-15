@@ -2,7 +2,7 @@ import rosebot
 import time
 
 
-def m2_pickup():
+def m2_pickup(freq, rate):
     robot = rosebot.RoseBot()
     go_until_distance_is_within_tone(robot, 1, 0, 25, freq, rate)
     robot.arm_and_claw.raise_arm()
@@ -14,10 +14,12 @@ def m2_pickup():
         #    break
 
 
-def m2_pickup_beep():
+def m2_pickup_beep(rate):
     robot = rosebot.RoseBot()
     go_until_distance_is_within_beep(robot, 1, 0, 25, rate)
     robot.arm_and_claw.raise_arm()
+
+
 
 
 def go_until_distance_is_within_tone(robot, delta, inches, speed, freq, rate):
