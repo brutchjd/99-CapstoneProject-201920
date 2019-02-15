@@ -82,15 +82,22 @@ def get_proximity_frame(window, mqtt_sender):
 
     pickup_button = ttk.Button(frame, text='Pick Up Tone')
     pickup2_button = ttk.Button(frame, text='Pick Up Beep')
+    pickup3_button = ttk.Button(frame, text='Pick UP LED')
 
     frame_label.grid(row=0, column=1)
     pickup_button.grid(row=1, column=1)
     pickup2_button.grid(row=2, column=1)
+    pickup3_button.grid(row=3, column=1)
 
     pickup_button["command"] = lambda: handle_pickup(mqtt_sender)
     pickup2_button["command"] = lambda: handle_pickup_beep(mqtt_sender)
+    pickup3_button["command"] = lambda: handle_pickup_led(mqtt_sender)
 
     return frame
+
+def handle_pickup_led(mqtt_sender):
+    print('Pickup')
+    mqtt_sender.send_message('m1_pickup_LED')
 
 
 def handle_pickup(mqtt_sender):
