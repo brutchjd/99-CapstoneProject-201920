@@ -52,13 +52,13 @@ def main():
     # TODO: Implement and call get_my_frames(...)
 
     find_object_frame = get_find_object_frame(main_frame, mqtt_sender)
-
+    pickup_led_frame = get_pickup_LED_frame(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
 
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame, color_frame)
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame, color_frame, pickup_led_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -77,7 +77,7 @@ def get_shared_frames(main_frame, mqtt_sender):
 
     return teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, color_frame
 
-def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame, color_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame, color_frame, pickup_led_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1, column=0)
     control_frame.grid(row=2, column=0)
@@ -85,7 +85,7 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     sound_frame.grid(row=1, column=1)
     find_object_frame.grid(row=3, column=0)
     color_frame.grid(row=2, column=1)
-
+    pickup_led_frame.grid(row=3, column =1)
 
 def get_find_object_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
@@ -114,6 +114,30 @@ def get_find_object_frame(window, mqtt_sender):
 
     return frame
 
+def get_pickup_LED_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text='Cycle LED')
+    led_button = ttk.Button(frame, text='Cycle LED')
+    intialrate_entry = ttk.Entry(frame)
+    rateincrease_entry = ttk.Entry(frame)
+
+    intialrate_label = ttk.Label(frame, text='Enter initial rate:')
+    rateincrease_label = ttk.Label(frame, text='Enter rate of increase:')
+
+    frame_label.grid(row=0, column=0)
+    led_button.grid(row=1, column=1)
+    intialrate_label.grid(row=2, column=0)
+    rateincrease_label.grid(row=3, column=0)
+    intialrate_entry.grid(row=2, column=1)
+    rateincrease_entry.grid(row=3, column=1)
+
+    led_button['command'] = lambda: handle_led_button(rateincrease_entry, intialrate_entry, mqtt_sender)
+
+    return frame
+
+
 def handle_clockwise(speed_entry, area_entry, mqtt_sender):
     print('Turn Clockwise and find Object')
     mqtt_sender.send_message('clockwise_find_object', [speed_entry.get(), area_entry.get()])
@@ -121,6 +145,10 @@ def handle_clockwise(speed_entry, area_entry, mqtt_sender):
 def handle_counterclockwise(speed_entry, area_entry, mqtt_sender):
     print('Turn Clockwise and find Object')
     mqtt_sender.send_message('clockwise_find_object', [speed_entry.get(), area_entry.get()])
+
+def handle_led_button(rateincrease_entry, intialrate_entry, mqtt_sender):
+    print('Cycle Leds')
+    mqtt_sender.send_message('m1_pickup_LED', [rateincrease_entry.get(), intialrate_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
