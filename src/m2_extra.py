@@ -20,6 +20,32 @@ def m2_pickup_beep(rate):
     robot.arm_and_claw.raise_arm()
 
 
+def m2_camera_clockwise(speed, area):
+    robot = rosebot.RoseBot()
+    robot.drive_system.spin_clockwise_until_sees_object(speed, area)
+
+    robot.drive_system.right_motor.turn_on(speed)
+    while True:
+        object_x = robot.sensor_system.camera.get_biggest_blob().center.x
+        if object_x > 150 and object_x < 200:
+            robot.drive_system.right_motor.turn_off()
+            break
+    m2_pickup_beep(10)
+
+
+def m2_camera_counterclockwise(speed, area):
+    robot = rosebot.RoseBot()
+    robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
+
+    robot.drive_system.left_motor.turn_on(speed)
+    while True:
+        object_x = robot.sensor_system.camera.get_biggest_blob().center.x
+        if object_x > 150 and object_x < 200:
+            robot.drive_system.left_motor.turn_off()
+            break
+    m2_pickup_beep(10)
+
+
 
 
 def go_until_distance_is_within_tone(robot, delta, inches, speed, freq, rate):
