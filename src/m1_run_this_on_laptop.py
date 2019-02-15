@@ -123,8 +123,8 @@ def get_pickup_LED_frame(window, mqtt_sender):
     intialrate_entry = ttk.Entry(frame)
     rateincrease_entry = ttk.Entry(frame)
 
-    intialrate_label = ttk.Label(frame, text='Enter initial rate:')
-    rateincrease_label = ttk.Label(frame, text='Enter rate of increase:')
+    intialrate_label = ttk.Label(frame, text='Enter initial rate (cycle/sec):')
+    rateincrease_label = ttk.Label(frame, text='Enter rate of increase (cycle/sec/inch):')
 
     frame_label.grid(row=0, column=0)
     led_button.grid(row=1, column=1)

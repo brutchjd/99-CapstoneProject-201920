@@ -125,6 +125,7 @@ class Receiver(object):
 
     def m1_pickup_LED(self, rateincrease, intitialrate):
         print('Got Pick Up with LEDs')
+        m1_extra.pick_up_LED(self.robot, 80, int(rateincrease), int(intitialrate))
         m1_extra.pick_up_LED(self.robot, int(rateincrease), int(intitialrate))
 
     def m2_camera_clockwise(self):
