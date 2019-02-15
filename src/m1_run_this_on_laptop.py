@@ -53,6 +53,7 @@ def main():
 
     find_object_frame = get_find_object_frame(main_frame, mqtt_sender)
 
+
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
@@ -90,7 +91,7 @@ def get_find_object_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
 
-    frame_label = ttk.Label(frame, text='Find Object')
+    frame_label = ttk.Label(frame, text='Find Object LED')
     clockwise_button = ttk.Button(frame, text='Turn Clockwise and Pick Up Object')
     counterclockwise_button = ttk.Button(frame, text='Turn Counterclockwise and Pick Up Object')
 

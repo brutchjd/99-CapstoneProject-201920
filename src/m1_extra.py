@@ -12,7 +12,6 @@ import time
 def clockwise_find_object(robot, speed, area):
     """
     :type robot:    rosebot.RoseBot
-
     """
     robot.drive_system.spin_clockwise_until_sees_object(speed, area)
     #moves robot to have the object in the center of the claw
@@ -22,13 +21,12 @@ def clockwise_find_object(robot, speed, area):
         if blob_x > 160 and blob_x < 190:
             robot.drive_system.right_motor.turn_off()
             break
-    robot.drive_system.go_forward_until_distance_is_less_than(2, speed)
-    robot.arm_and_claw.raise_arm()
+    pick_up_LED(robot, speed)
+
 
 def counterclockwise_find_object(robot, speed, area):
     """
     :type robot:    rosebot.RoseBot
-
     """
     robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
     #moves robot to have the object in the center of the claw
@@ -38,18 +36,18 @@ def counterclockwise_find_object(robot, speed, area):
         if blob_x > 160 and blob_x < 190:
             robot.drive_system.left_motor.turn_off()
             break
-    robot.drive_system.go_forward_until_distance_is_less_than(2, speed)
+    pick_up_LED(robot, speed)
+
+
+def pick_up_LED(robot, speed):
+    go_until_distance_is_within_LED(robot, 1, 0, speed)
     robot.arm_and_claw.raise_arm()
 
-def pick_up_LED(robot):
-    go_until_distance_is_within_LED(robot, 1, 0, 25)
-    robot.arm_and_claw.raise_arm()
 
 def go_until_distance_is_within_LED(robot, delta, inches, speed):
     """
-        :type robot:    rosebot.RoseBot
-
-        """
+    :type robot:    rosebot.RoseBot
+    """
     start = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     print(start)
 
@@ -82,9 +80,8 @@ def go_until_distance_is_within_LED(robot, delta, inches, speed):
 
 def cycle_LEDs(robot, distance):
     """
-            :type robot:    rosebot.RoseBot
-
-            """
+    :type robot:    rosebot.RoseBot
+    """
     robot.led_system.left_led.turn_on()
     time.sleep(1 / (distance + 0.00001))
     robot.led_system.left_led.turn_off()
