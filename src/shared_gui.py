@@ -246,7 +246,43 @@ def get_sound_frame(window, mqtt_sender):
 
     return frame
 
+def get_color_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
+    frame.grid()
 
+    frame_label = ttk.Label(frame, text='Color Stuff')
+    less_intensity_button = ttk.Button(frame, text='less_intensity')
+    more_intensity_button = ttk.Button(frame, text='more_intensity')
+    is_color_button = ttk.Button(frame, text='same_color')
+    different_color = ttk.Button(frame, text='different_color')
+
+    intensity_label = ttk.Label(frame, text='insert_intensity')
+    intensity_entry = ttk.Entry(frame)
+
+    color_label = ttk.Label(frame, text='insert_color')
+    color_entry = ttk.Entry(frame)
+
+    speed_label = ttk.Label(frame, text='insert_speed')
+    speed_entry = ttk.Entry(frame)
+
+    frame_label.grid(row=0, column=0)
+    less_intensity_button.grid(row=1, column=1)
+    more_intensity_button.grid(row=2, column=1)
+    is_color_button.grid(row=3, column=1)
+    different_color.grid(row=4, column=1)
+    intensity_label.grid(row=1, column=2)
+    color_label.grid(row=3, column=2)
+    intensity_entry.grid(row=1, column=3)
+    color_entry.grid(row=3, column=3)
+    speed_label.grid(row=4, column=2)
+    speed_entry.grid(row=4, column=3)
+
+    less_intensity_button["command"] = lambda: handle_intensity_button1(intensity_entry, speed_entry, mqtt_sender)
+    more_intensity_button["command"] = lambda: handle_intensity_button2(intensity_entry, speed_entry, mqtt_sender)
+    is_color_button["command"] = lambda: handle_color_button1(color_entry, speed_entry, mqtt_sender)
+    less_intensity_button["command"] = lambda: handle_color_button2(color_entry, speed_entry, mqtt_sender)
+
+    return frame
 
 ###############################################################################
 ###############################################################################
@@ -438,4 +474,29 @@ def handle_frequency(frequency_entry, duration_entry, mqtt_sender):
 def handle_speak(speak_entry, mqtt_sender):
     print('Saying:', speak_entry.get())
     mqtt_sender.send_message('speak', [speak_entry.get()])
+
+##############################################################################
+# Handlers for Buttons in the Sound System frame.
+##############################################################################
+
+def handle_intensity_button1(intensity_entry, speed_entry, mqtt_sender):
+    print('Drive Straight Until Intensity Less Than', intensity_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
+
+
+def handle_intensity_button2(intensity_entry, speed_entry, mqtt_sender):
+    print('Drive Straight Until Intensity Greater Than', intensity_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
+
+
+def handle_color_button1(color_entry, speed_entry, mqtt_sender):
+    print('Straight Until Color Is', color_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('color', [color_entry.get(), speed_entry.get()])
+
+
+def handle_color_button2(color_entry, speed_entry, mqtt_sender):
+    print('Straight Until Color Is Not', color_entry.get(), speed_entry.get())
+    mqtt_sender.send_message('color', [color_entry.get(), color_entry.get()])
+
+
 
