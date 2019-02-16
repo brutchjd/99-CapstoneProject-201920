@@ -195,11 +195,7 @@ class DriveSystem(object):
                     self.stop()
                     print('stop')
                     break
-            else:
-                if self.sensor_system.color_sensor.get_color() != int(color):
-                    self.stop()
-                    print('stop')
-                    break
+
 
 
     # -------------------------------------------------------------------------

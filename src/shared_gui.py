@@ -496,7 +496,7 @@ def handle_color_button1(color_entry, speed_entry, mqtt_sender):
 
 def handle_color_button2(color_entry, speed_entry, mqtt_sender):
     print('Straight Until Color Is Not', color_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('color_different', [color_entry.get(), color_entry.get()])
+    mqtt_sender.send_message('color_different', [color_entry.get(), speed_entry.get()])
 
 
 
