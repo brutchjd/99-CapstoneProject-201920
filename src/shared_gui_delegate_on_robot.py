@@ -8,6 +8,7 @@
 """
 import m2_extra
 import m1_extra
+import m3_extra
 
 class Receiver(object):
 
@@ -134,3 +135,20 @@ class Receiver(object):
     def m2_camera_counterclockwise(self, speed, area):
         print('Got Find and Pick Up')
         m2_extra.m2_camera_counterclockwise(int(speed), int(area))
+
+    def intensity_less(self, intensity, speed):
+        print('Got Intensity Less')
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity), int(speed))
+
+    def intensity_more(self, intensity, speed):
+        print('Got Intensity More')
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity), int(speed))
+
+    def color_equal(self, color, speed):
+        print('Got Color Equal')
+        self.robot.drive_system.go_straight_until_color_is(color, int(speed))
+
+    def color_different(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is_not(color, int(speed))
+
+

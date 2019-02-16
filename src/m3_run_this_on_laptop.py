@@ -94,10 +94,6 @@ def handle_pickup(mqtt_sender):
     mqtt_sender.send_message('m2_pickup_tone')
 
 
-def handle_color(mqtt_sender):
-    print('Color')
-    mqtt_sender.send_message('m3_color')
-
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame):
     teleop_frame.grid(row=0, column=0)
