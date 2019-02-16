@@ -91,7 +91,7 @@ def get_proximity_frame(window, mqtt_sender):
 
 def handle_pickup(mqtt_sender):
     print('Pickup')
-    mqtt_sender.send_message('m2_pickup_tone')
+    mqtt_sender.send_message('m3_pickup_tone')
 
 
 

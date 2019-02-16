@@ -21,7 +21,7 @@ def clockwise_find_object(robot, speed, area):
         if blob_x > 160 and blob_x < 190:
             robot.drive_system.right_motor.turn_off()
             break
-    m1_pick_up_LED(robot, speed)
+    m1_pick_up_LED(robot, speed, 1.0, 1.0)
 
 
 def counterclockwise_find_object(robot, speed, area):
@@ -36,10 +36,10 @@ def counterclockwise_find_object(robot, speed, area):
         if blob_x > 160 and blob_x < 190:
             robot.drive_system.left_motor.turn_off()
             break
-    m1_pick_up_LED(robot, speed)
+    m1_pick_up_LED(robot, speed, 1.0, 1.0)
 
 
-def m1_pick_up_LED(robot, speed, rate, rate_increase):
+def m1_pick_up_LED(robot, speed, rate_increase, rate):
     go_until_distance_is_within_LED(robot, 0, speed, rate, rate_increase)
     robot.arm_and_claw.raise_arm()
 
