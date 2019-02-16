@@ -15,11 +15,11 @@ def clockwise_find_object(robot, speed, area):
     """
     robot.drive_system.spin_clockwise_until_sees_object(speed, area)
     #moves robot to have the object in the center of the claw
-    robot.drive_system.right_motor.turn_on(speed)
+    robot.drive_system.left_motor.turn_on(speed)
     while True:
         blob_x = robot.sensor_system.camera.get_biggest_blob().center.x
-        if blob_x > 160 and blob_x < 190:
-            robot.drive_system.right_motor.turn_off()
+        if blob_x > 171 and blob_x < 179:
+            robot.drive_system.left_motor.turn_off()
             break
     m1_pick_up_LED(robot, speed, 1.0, 1.0)
 
@@ -30,17 +30,17 @@ def counterclockwise_find_object(robot, speed, area):
     """
     robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
     #moves robot to have the object in the center of the claw
-    robot.drive_system.left_motor.turn_on(speed)
+    robot.drive_system.right_motor.turn_on(speed)
     while True:
         blob_x = robot.sensor_system.camera.get_biggest_blob().center.x
-        if blob_x > 160 and blob_x < 190:
-            robot.drive_system.left_motor.turn_off()
+        if blob_x > 171 and blob_x < 179:
+            robot.drive_system.right_motor.turn_off()
             break
     m1_pick_up_LED(robot, speed, 1.0, 1.0)
 
 
 def m1_pick_up_LED(robot, speed, rate_increase, rate):
-    go_until_distance_is_within_LED(robot, 0, speed, rate, rate_increase)
+    go_until_distance_is_within_LED(robot, 1, speed, rate, rate_increase)
     robot.arm_and_claw.raise_arm()
 
 
@@ -74,15 +74,15 @@ def cycle_LEDs(robot, rate, rate_increase, distance):
     :type robot:    rosebot.RoseBot
     """
     robot.led_system.left_led.turn_on()
-    time.sleep((1/(rate + rate_increase/distance))/4)
+    time.sleep((1/(rate + rate_increase/(distance+0.0001))/4))
     robot.led_system.left_led.turn_off()
     robot.led_system.right_led.turn_on()
-    time.sleep((1/(rate + rate_increase/distance))/4)
+    time.sleep((1/(rate + rate_increase/(distance+0.0001)))/4)
     robot.led_system.left_led.turn_on()
-    time.sleep((1/(rate + rate_increase/distance))/4)
+    time.sleep((1/(rate + rate_increase/(distance+0.0001)))/4)
     robot.led_system.left_led.turn_off()
     robot.led_system.right_led.turn_off()
-    time.sleep((1/(rate + rate_increase/distance))/4)
+    time.sleep((1/(rate + rate_increase/(distance+0.0001)))/4)
 
 
 

@@ -144,7 +144,7 @@ def handle_clockwise(speed_entry, area_entry, mqtt_sender):
 
 def handle_counterclockwise(speed_entry, area_entry, mqtt_sender):
     print('Turn Clockwise and find Object')
-    mqtt_sender.send_message('m1_clockwise_find_object', [speed_entry.get(), area_entry.get()])
+    mqtt_sender.send_message('m1_counterclockwise_find_object', [speed_entry.get(), area_entry.get()])
 
 def handle_led_button(rateincrease_entry, intialrate_entry, mqtt_sender):
     print('Cycle Leds')
