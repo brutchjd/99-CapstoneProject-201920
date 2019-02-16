@@ -116,11 +116,11 @@ class Receiver(object):
         print('Got Pick Up with Beeps')
         m2_extra.m2_pickup_beep(int(rate))
 
-    def clockwise_find_object(self, speed, area):
+    def m1_clockwise_find_object(self, speed, area):
         print('Got Clockwise Find Object')
         m1_extra.clockwise_find_object(self.robot, int(speed), int(area))
 
-    def counterclockwise_find_object(self, speed, area):
+    def m1_counterclockwise_find_object(self, speed, area):
         print('Got Clockwise Find Object')
         m1_extra.counterclockwise_find_object(self.robot, int(speed), int(area))
 
@@ -151,4 +151,10 @@ class Receiver(object):
     def color_different(self, color, speed):
         self.robot.drive_system.go_straight_until_color_is_not(color, int(speed))
 
+    def m3_camera_clockwise(self, speed, area):
+        print('Got Find and Pick Up Tone')
+        m3_extra.m3_camera_clockwise(int(speed), int(area))
 
+    def m3_camera_counterclockwise(self, speed, area):
+        print('Got Find and Pick Up Tone')
+        m3_extra.m3_camera_counterclockwise(int(speed), int(area))
