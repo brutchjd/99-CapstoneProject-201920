@@ -204,8 +204,6 @@ class DriveSystem(object):
                     print('stop')
                     break
 
-
-
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
     # -------------------------------------------------------------------------
