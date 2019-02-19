@@ -113,6 +113,12 @@ class DriveSystem(object):
         seconds = inches / (speed / 10)
         self.go_straight_for_seconds(seconds, speed)
 
+        if speed > 0:
+            self.y = inches + self.y
+
+        if speed < 0:
+            self.y = inches - self.y
+
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
@@ -340,8 +346,10 @@ class DriveSystem(object):
                 print('Found Object')
                 break
 
-    def position(self):
-        pass
+    def get_position(self):
+        return self.x, self.y
+
+
 ###############################################################################
 #    ArmAndClaw
 ###############################################################################
