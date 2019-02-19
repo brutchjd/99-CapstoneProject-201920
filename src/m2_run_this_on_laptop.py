@@ -76,9 +76,9 @@ def main():
     canvas = tkinter.Canvas(tab2, width=750, height=500, bg='#0092ce')
     canvas.pack()
 
-    rectangle_button["command"] = lambda: canvas.create_rectangle(150, 100, 600, 400, fill='black')
-    circle_button["command"] = lambda: canvas.create_oval(250, 150, 500, 400, fill='black')
-    triangle_button["command"]= lambda: canvas.create_polygon(150, 75, 600, 75, 375, 450, fill='black')
+    rectangle_button["command"] = lambda: canvas.create_rectangle(150, 100, 600, 400, fill='black'); handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender)
+    circle_button["command"] = lambda: canvas.create_oval(250, 150, 500, 400, fill='black'); handle_circle(speed_entry, length_entry, mqtt_sender)
+    triangle_button["command"]= lambda: canvas.create_polygon(150, 75, 600, 75, 375, 450, fill='black'); handle_triangle(speed_entry, length_entry, mqtt_sender)
     clear_button["command"] = lambda: canvas.delete('all')
 
     main_frame = ttk.Frame(tab1, padding=10, borderwidth=5, relief='groove')
@@ -212,6 +212,16 @@ def handle_camera_counterclockwise(speed_entry, area_entry, mqtt_sender):
 def handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender):
     print('Drive Rectangle', speed_entry.get(), length_entry.get(), width_entry.get())
     mqtt_sender.send_message('rectangle', [speed_entry.get(), length_entry.get(), width_entry.get()])
+
+
+def handle_triangle(speed_entry, length_entry, mqtt_sender):
+    print('Drive Triangle', speed_entry.get(), length_entry.get())
+    mqtt_sender.send_message('triangle', [speed_entry.get(), length_entry.get()])
+
+
+def handle_circle(speed_entry, length_entry, mqtt_sender):
+    print('Drive Circle', speed_entry.get(), length_entry.get())
+    mqtt_sender.send_message('circle', [speed_entry.get(), length_entry.get()])
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame, camera_frame):
