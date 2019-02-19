@@ -11,6 +11,9 @@
 
 import rosebot
 import time
+import tkinter
+from tkinter import ttk
+import m2_run_this_on_laptop as m2L
 
 
 def m2_pickup_beep(rate):
@@ -76,3 +79,21 @@ def go_until_distance_is_within_beep(robot, delta, inches, speed, rate):
                 robot.drive_system.left_motor.turn_off()
                 robot.drive_system.right_motor.turn_off()
                 break
+
+
+def map_path():
+    pass
+
+
+def gui_canvas():
+    root = tkinter.Tk()
+    root.title('Capstone Project')
+
+    tabControl = ttk.Notebook(root)
+    tab2 = ttk.Frame(tabControl)
+    tabControl.add(tab2, text='Individual')
+    tabControl.pack(expand=1, fill='both')
+
+    canvas = tkinter.Canvas(m2L.main().tab2, width=750, height=500, bg='#0092ce')
+
+    return canvas
