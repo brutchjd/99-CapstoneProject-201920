@@ -91,12 +91,45 @@ def get_proximity_frame(window, mqtt_sender):
 
 def handle_pickup(mqtt_sender):
     print('Pickup')
-    mqtt_sender.send_message('m2_pickup_tone')
+    mqtt_sender.send_message('m3_pickup_tone')
+
+def get_camera_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+    frame_label = ttk.Label(frame, text='Find Object Camera Tone')
+    frame_label.grid(row=0, column=1)
+
+    speed_label = ttk.Label(frame, text='Enter Speed:')
+    area_label = ttk.Label(frame, text='Enter Area:')
+
+    speed_entry = ttk.Entry(frame)
+    area_entry = ttk.Entry(frame)
+
+    clockwise_button = ttk.Button(frame, text='Spin Clockwise')
+    counterclock_button = ttk.Button(frame, text='Spin Counterclockwise')
+
+    speed_entry.grid(row=2, column=1)
+    area_entry.grid(row=3, column=1)
+    speed_label.grid(row=2, column=0)
+    area_label.grid(row=3, column=0)
+
+    clockwise_button.grid(row=1, column=0)
+    counterclock_button.grid(row=1, column=2)
+
+    clockwise_button["command"] = lambda: handle_camera_clockwise(speed_entry, area_entry, mqtt_sender)
+    counterclock_button["command"] = lambda: handle_camera_counterclockwise(speed_entry, area_entry, mqtt_sender)
+
+    return frame
 
 
-def handle_color(mqtt_sender):
-    print('Color')
-    mqtt_sender.send_message('m3_color')
+def handle_camera_clockwise(speed_entry, area_entry, mqtt_sender):
+    print('Find and Pickup with Tone', speed_entry.get(), area_entry.get())
+    mqtt_sender.send_message('m3_camera_clockwise', [speed_entry.get(), area_entry.get()])
+
+
+def handle_camera_counterclockwise(speed_entry, area_entry, mqtt_sender):
+    print('Find and Pickup with Tone', speed_entry.get(), area_entry.get())
+    mqtt_sender.send_message('m3_camera_counterclockwise', [speed_entry.get(), area_entry.get()])
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame):

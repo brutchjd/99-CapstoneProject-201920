@@ -8,6 +8,7 @@
 """
 import m2_extra
 import m1_extra
+import m3_extra
 
 class Receiver(object):
 
@@ -107,19 +108,19 @@ class Receiver(object):
         print('Got Camera Clockwise')
         self.robot.drive_system.spin_clockwise_until_sees_object(int(speed), int(area))
 
-    def m2_pickup_tone(self, freq, rate):
+    def m3_pickup_tone(self, freq, rate):
         print('Got Pick Up With Tones')
-        m2_extra.m2_pickup(int(freq), int(rate))
+        m3_extra.m3_pickup(int(freq), int(rate))
 
     def m2_pickup_beep(self, rate):
         print('Got Pick Up with Beeps')
         m2_extra.m2_pickup_beep(int(rate))
 
-    def clockwise_find_object(self, speed, area):
+    def m1_clockwise_find_object(self, speed, area):
         print('Got Clockwise Find Object')
         m1_extra.clockwise_find_object(self.robot, int(speed), int(area))
 
-    def counterclockwise_find_object(self, speed, area):
+    def m1_counterclockwise_find_object(self, speed, area):
         print('Got Clockwise Find Object')
         m1_extra.counterclockwise_find_object(self.robot, int(speed), int(area))
 
@@ -134,3 +135,26 @@ class Receiver(object):
     def m2_camera_counterclockwise(self, speed, area):
         print('Got Find and Pick Up')
         m2_extra.m2_camera_counterclockwise(int(speed), int(area))
+
+    def intensity_less(self, intensity, speed):
+        print('Got Intensity Less')
+        self.robot.drive_system.go_straight_until_intensity_is_less_than(int(intensity), int(speed))
+
+    def intensity_more(self, intensity, speed):
+        print('Got Intensity More')
+        self.robot.drive_system.go_straight_until_intensity_is_greater_than(int(intensity), int(speed))
+
+    def color_equal(self, color, speed):
+        print('Got Color Equal')
+        self.robot.drive_system.go_straight_until_color_is(color, int(speed))
+
+    def color_different(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is_not(color, int(speed))
+
+    def m3_camera_clockwise(self, speed, area):
+        print('Got Find and Pick Up Tone')
+        m3_extra.m3_camera_clockwise(int(speed), int(area))
+
+    def m3_camera_counterclockwise(self, speed, area):
+        print('Got Find and Pick Up Tone')
+        m3_extra.m3_camera_counterclockwise(int(speed), int(area))

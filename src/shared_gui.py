@@ -280,7 +280,7 @@ def get_color_frame(window, mqtt_sender):
     less_intensity_button["command"] = lambda: handle_intensity_button1(intensity_entry, speed_entry, mqtt_sender)
     more_intensity_button["command"] = lambda: handle_intensity_button2(intensity_entry, speed_entry, mqtt_sender)
     is_color_button["command"] = lambda: handle_color_button1(color_entry, speed_entry, mqtt_sender)
-    less_intensity_button["command"] = lambda: handle_color_button2(color_entry, speed_entry, mqtt_sender)
+    different_color["command"] = lambda: handle_color_button2(color_entry, speed_entry, mqtt_sender)
 
     return frame
 
@@ -476,27 +476,27 @@ def handle_speak(speak_entry, mqtt_sender):
     mqtt_sender.send_message('speak', [speak_entry.get()])
 
 ##############################################################################
-# Handlers for Buttons in the Sound System frame.
+# Handlers for Buttons in the color sensor frame.
 ##############################################################################
 
 def handle_intensity_button1(intensity_entry, speed_entry, mqtt_sender):
     print('Drive Straight Until Intensity Less Than', intensity_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
+    mqtt_sender.send_message('intensity_less', [intensity_entry.get(), speed_entry.get()])
 
 
 def handle_intensity_button2(intensity_entry, speed_entry, mqtt_sender):
     print('Drive Straight Until Intensity Greater Than', intensity_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('intensity', [intensity_entry.get(), speed_entry.get()])
+    mqtt_sender.send_message('intensity_more', [intensity_entry.get(), speed_entry.get()])
 
 
 def handle_color_button1(color_entry, speed_entry, mqtt_sender):
     print('Straight Until Color Is', color_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('color', [color_entry.get(), speed_entry.get()])
+    mqtt_sender.send_message('color_equal', [color_entry.get(), speed_entry.get()])
 
 
 def handle_color_button2(color_entry, speed_entry, mqtt_sender):
     print('Straight Until Color Is Not', color_entry.get(), speed_entry.get())
-    mqtt_sender.send_message('color', [color_entry.get(), color_entry.get()])
+    mqtt_sender.send_message('color_different', [color_entry.get(), speed_entry.get()])
 
 
 

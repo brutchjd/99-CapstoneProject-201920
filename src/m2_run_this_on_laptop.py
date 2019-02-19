@@ -145,7 +145,7 @@ def handle_pickup_led(mqtt_sender):
 
 def handle_pickup(freq_entry, rate_entry, mqtt_sender):
     print('Pickup', freq_entry.get(), rate_entry.get())
-    mqtt_sender.send_message('m2_pickup_tone', [freq_entry.get(), rate_entry.get()])
+    mqtt_sender.send_message('m3_pickup_tone', [freq_entry.get(), rate_entry.get()])
 
 
 def handle_pickup_beep(rate_entry, mqtt_sender):
