@@ -12,7 +12,6 @@ import tkinter
 from tkinter import ttk
 import shared_gui
 import shared_gui_delegate_on_robot
-from m2_extra import gui_canvas
 
 def main():
     """
@@ -44,8 +43,9 @@ def main():
     tabControl.add(tab2, text='Individual')
     tabControl.pack(expand=1, fill='both')
 
-    canvas = gui_canvas()
+    canvas = tkinter.Canvas(tab2, width=750, height=500, bg='#0092ce')
     canvas.pack()
+    canvas.create_line(0, 0, 0, 0, fill='black')
 
     main_frame = ttk.Frame(tab1, padding=10, borderwidth=5, relief='groove')
     main_frame.pack()

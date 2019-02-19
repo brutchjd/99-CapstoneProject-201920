@@ -85,15 +85,3 @@ def map_path():
     pass
 
 
-def gui_canvas():
-    root = tkinter.Tk()
-    root.title('Capstone Project')
-
-    tabControl = ttk.Notebook(root)
-    tab2 = ttk.Frame(tabControl)
-    tabControl.add(tab2, text='Individual')
-    tabControl.pack(expand=1, fill='both')
-
-    canvas = tkinter.Canvas(m2L.main().tab2, width=750, height=500, bg='#0092ce')
-
-    return canvas
