@@ -81,7 +81,23 @@ def go_until_distance_is_within_beep(robot, delta, inches, speed, rate):
                 break
 
 
-def map_path():
+def map_rectangle(robot, speed, width, length):
+    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(width, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+
+
+def map_triangle(robot, speed, length):
+    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+
+
+def map_circle(robot, speed, length):
     pass
 
 

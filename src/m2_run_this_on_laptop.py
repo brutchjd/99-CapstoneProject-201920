@@ -43,9 +43,43 @@ def main():
     tabControl.add(tab2, text='Individual')
     tabControl.pack(expand=1, fill='both')
 
+    rectangle_button = ttk.Button(tab2, text='Rectangle')
+    rectangle_button.pack(side='top')
+
+    triangle_button = ttk.Button(tab2, text='Triangle')
+    triangle_button.pack(side='top')
+
+    circle_button = ttk.Button(tab2, text='Circle')
+    circle_button.pack(side='top')
+
+    clear_button = ttk.Button(tab2, text='Clear')
+    clear_button.pack(side='bottom')
+
+    speed_entry = ttk.Entry(tab2, width=10)
+    width_entry = ttk.Entry(tab2, width=10)
+    length_entry = ttk.Entry(tab2, width=10)
+
+    speed_label = ttk.Label(tab2, text='Enter Speed:')
+    width_label = ttk.Label(tab2, text='Enter Width:')
+    length_label = ttk.Label(tab2, text='Enter Length:')
+
+    speed_label.pack(side='top')
+    speed_entry.pack(side='top')
+
+    width_label.pack(side='top')
+    width_entry.pack(side='top')
+
+    length_label.pack(side='top')
+    length_entry.pack(side='top')
+
+
     canvas = tkinter.Canvas(tab2, width=750, height=500, bg='#0092ce')
     canvas.pack()
-    canvas.create_line(0, 0, 0, 0, fill='black')
+
+    rectangle_button["command"] = lambda: canvas.create_rectangle(150, 100, 600, 400, fill='black')
+    circle_button["command"] = lambda: canvas.create_oval(250, 150, 500, 400, fill='black')
+    triangle_button["command"]= lambda: canvas.create_polygon(150, 75, 600, 75, 375, 450, fill='black')
+    clear_button["command"] = lambda: canvas.delete('all')
 
     main_frame = ttk.Frame(tab1, padding=10, borderwidth=5, relief='groove')
     main_frame.pack()
@@ -173,6 +207,11 @@ def handle_camera_clockwise(speed_entry, area_entry, mqtt_sender):
 def handle_camera_counterclockwise(speed_entry, area_entry, mqtt_sender):
     print('Find and Pickup', speed_entry.get(), area_entry.get())
     mqtt_sender.send_message('m2_camera_counterclockwise', [speed_entry.get(), area_entry.get()])
+
+
+def handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender):
+    print('Drive Rectangle', speed_entry.get(), length_entry.get(), width_entry.get())
+    mqtt_sender.send_message('rectangle', [speed_entry.get(), length_entry.get(), width_entry.get()])
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame, camera_frame):
