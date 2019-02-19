@@ -13,7 +13,6 @@ from tkinter import ttk
 import shared_gui
 import shared_gui_delegate_on_robot
 
-
 def main():
     """
     This code, which must run on a LAPTOP:
@@ -35,8 +34,55 @@ def main():
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
-    main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
-    main_frame.grid()
+    tabControl = ttk.Notebook(root)
+    tab1 = ttk.Frame(tabControl)
+    tabControl.add(tab1, text='Shared Gui')
+    tabControl.pack(expand=1, fill='both')
+
+    tab2 = ttk.Frame(tabControl)
+    tabControl.add(tab2, text='Individual')
+    tabControl.pack(expand=1, fill='both')
+
+    rectangle_button = ttk.Button(tab2, text='Rectangle')
+    rectangle_button.pack(side='top')
+
+    triangle_button = ttk.Button(tab2, text='Triangle')
+    triangle_button.pack(side='top')
+
+    circle_button = ttk.Button(tab2, text='Circle')
+    circle_button.pack(side='top')
+
+    clear_button = ttk.Button(tab2, text='Clear')
+    clear_button.pack(side='bottom')
+
+    speed_entry = ttk.Entry(tab2, width=10)
+    width_entry = ttk.Entry(tab2, width=10)
+    length_entry = ttk.Entry(tab2, width=10)
+
+    speed_label = ttk.Label(tab2, text='Enter Speed:')
+    width_label = ttk.Label(tab2, text='Enter Width:')
+    length_label = ttk.Label(tab2, text='Enter Length:')
+
+    speed_label.pack(side='top')
+    speed_entry.pack(side='top')
+
+    width_label.pack(side='top')
+    width_entry.pack(side='top')
+
+    length_label.pack(side='top')
+    length_entry.pack(side='top')
+
+
+    canvas = tkinter.Canvas(tab2, width=750, height=500, bg='#0092ce')
+    canvas.pack()
+
+    rectangle_button["command"] = lambda: canvas.create_rectangle(150, 100, 600, 400, fill='black'); handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender)
+    circle_button["command"] = lambda: canvas.create_oval(250, 150, 500, 400, fill='black'); handle_circle(speed_entry, length_entry, mqtt_sender)
+    triangle_button["command"]= lambda: canvas.create_polygon(150, 75, 600, 75, 375, 450, fill='black'); handle_triangle(speed_entry, length_entry, mqtt_sender)
+    clear_button["command"] = lambda: canvas.delete('all')
+
+    main_frame = ttk.Frame(tab1, padding=10, borderwidth=5, relief='groove')
+    main_frame.pack()
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
@@ -163,15 +209,30 @@ def handle_camera_counterclockwise(speed_entry, area_entry, mqtt_sender):
     mqtt_sender.send_message('m2_camera_counterclockwise', [speed_entry.get(), area_entry.get()])
 
 
+def handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender):
+    print('Drive Rectangle', speed_entry.get(), length_entry.get(), width_entry.get())
+    mqtt_sender.send_message('rectangle', [speed_entry.get(), length_entry.get(), width_entry.get()])
+
+
+def handle_triangle(speed_entry, length_entry, mqtt_sender):
+    print('Drive Triangle', speed_entry.get(), length_entry.get())
+    mqtt_sender.send_message('triangle', [speed_entry.get(), length_entry.get()])
+
+
+def handle_circle(speed_entry, length_entry, mqtt_sender):
+    print('Drive Circle', speed_entry.get(), length_entry.get())
+    mqtt_sender.send_message('circle', [speed_entry.get(), length_entry.get()])
+
+
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame, camera_frame):
-    teleop_frame.grid(row=0, column=0)
-    arm_frame.grid(row=1, column=0)
-    control_frame.grid(row=2, column=0)
-    drive_frame.grid(row=0, column=1)
-    sound_frame.grid(row=1, column=1)
-    proximity_frame.grid(row=2, column=1)
-    color_frame.grid(row=3, column=1)
-    camera_frame.grid(row=3, column=0)
+    teleop_frame.grid(row=3, column=2)
+    arm_frame.grid(row=0, column=2)
+    control_frame.grid(row=4, column=1)
+    drive_frame.grid(row=1, column=1)
+    sound_frame.grid(row=0, column=1)
+    proximity_frame.grid(row=3, column=1)
+    color_frame.grid(row=3, column=0)
+    camera_frame.grid(row=0, column=0)
 
 
 # -----------------------------------------------------------------------------

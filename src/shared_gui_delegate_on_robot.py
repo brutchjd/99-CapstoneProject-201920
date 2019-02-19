@@ -158,3 +158,17 @@ class Receiver(object):
     def m3_camera_counterclockwise(self, speed, area):
         print('Got Find and Pick Up Tone')
         m3_extra.m3_camera_counterclockwise(int(speed), int(area))
+
+    def m2_rectangle(self, speed, width, length):
+        print('Driving Retangle')
+        m2_extra.map_rectangle(int(speed), int(width), int(length))
+
+    def m2_triangle(self, speed, length):
+        print('Driving Triangle')
+        m2_extra.map_triangle(int(speed), int(length))
+
+    def m2_triangle(self, speed, length):
+        print('Driving Circle')
+        m2_extra.map_circle(int(speed), int(length))
+
+

@@ -72,6 +72,8 @@ class DriveSystem(object):
         self.right_motor = Motor('C')
 
         self.wheel_circumference = 1.3 * math.pi
+        self.x = 0
+        self.y = 0
 
     # -------------------------------------------------------------------------
     # Methods for driving with no external sensor (just the built-in encoders).
@@ -110,6 +112,12 @@ class DriveSystem(object):
         """
         seconds = inches / (speed / 10)
         self.go_straight_for_seconds(seconds, speed)
+
+        if speed > 0:
+            self.y = inches + self.y
+
+        if speed < 0:
+            self.y = inches - self.y
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -195,8 +203,6 @@ class DriveSystem(object):
                     self.stop()
                     print('stop')
                     break
-
-
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
@@ -337,6 +343,10 @@ class DriveSystem(object):
                 self.left_motor.turn_off()
                 print('Found Object')
                 break
+
+    def get_position(self):
+        return self.x, self.y
+
 
 ###############################################################################
 #    ArmAndClaw

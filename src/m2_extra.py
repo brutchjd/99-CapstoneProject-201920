@@ -11,6 +11,9 @@
 
 import rosebot
 import time
+import tkinter
+from tkinter import ttk
+import m2_run_this_on_laptop as m2L
 
 
 def m2_pickup_beep(rate):
@@ -76,3 +79,25 @@ def go_until_distance_is_within_beep(robot, delta, inches, speed, rate):
                 robot.drive_system.left_motor.turn_off()
                 robot.drive_system.right_motor.turn_off()
                 break
+
+
+def map_rectangle(robot, speed, width, length):
+    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(width, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+
+
+def map_triangle(robot, speed, length):
+    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+    robot.drive_system.left_motor.turn_on(speed)
+
+
+def map_circle(robot, speed, length):
+    pass
+
+
