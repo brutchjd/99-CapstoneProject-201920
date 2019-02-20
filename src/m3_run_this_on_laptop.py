@@ -34,6 +34,15 @@ def main():
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
+    tabControl = ttk.Notebook(root)
+    tab1 = ttk.Frame(tabControl)
+    tabControl.add(tab1, text='Shared Gui')
+    tabControl.pack(expand=1, fill='both')
+
+    tab2 = ttk.Frame(tabControl)
+    tabControl.add(tab2, text='Individual')
+    tabControl.pack(expand=1, fill='both')
+
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
     main_frame.grid()
 
