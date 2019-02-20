@@ -43,44 +43,6 @@ def main():
     tabControl.add(tab2, text='Individual')
     tabControl.pack(expand=1, fill='both')
 
-    rectangle_button = ttk.Button(tab2, text='Rectangle')
-    rectangle_button.pack(side='top')
-
-    triangle_button = ttk.Button(tab2, text='Triangle')
-    triangle_button.pack(side='top')
-
-    circle_button = ttk.Button(tab2, text='Circle')
-    circle_button.pack(side='top')
-
-    clear_button = ttk.Button(tab2, text='Clear')
-    clear_button.pack(side='bottom')
-
-    speed_entry = ttk.Entry(tab2, width=10)
-    width_entry = ttk.Entry(tab2, width=10)
-    length_entry = ttk.Entry(tab2, width=10)
-
-    speed_label = ttk.Label(tab2, text='Enter Speed:')
-    width_label = ttk.Label(tab2, text='Enter Width:')
-    length_label = ttk.Label(tab2, text='Enter Length:')
-
-    speed_label.pack(side='top')
-    speed_entry.pack(side='top')
-
-    width_label.pack(side='top')
-    width_entry.pack(side='top')
-
-    length_label.pack(side='top')
-    length_entry.pack(side='top')
-
-
-    canvas = tkinter.Canvas(tab2, width=750, height=500, bg='#0092ce')
-    canvas.pack()
-
-    rectangle_button["command"] = lambda: canvas.create_rectangle(150, 100, 600, 400, fill='black'); handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender)
-    circle_button["command"] = lambda: canvas.create_oval(250, 150, 500, 400, fill='black'); handle_circle(speed_entry, length_entry, mqtt_sender)
-    triangle_button["command"]= lambda: canvas.create_polygon(150, 75, 600, 75, 375, 450, fill='black'); handle_triangle(speed_entry, length_entry, mqtt_sender)
-    clear_button["command"] = lambda: canvas.delete('all')
-
     main_frame = ttk.Frame(tab1, padding=10, borderwidth=5, relief='groove')
     main_frame.pack()
 
@@ -94,12 +56,12 @@ def main():
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
     proximity_frame, camera_frame = get_individual_frame(main_frame, mqtt_sender)
-
+    shape_frame = get_shape_frame(tab2, mqtt_sender)
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame, camera_frame)
-
+    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame, camera_frame,)
+    shape_frame.pack()
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -183,6 +145,58 @@ def get_camera_frame(window, mqtt_sender):
 
     return frame
 
+def get_shape_frame(window, mqtt_sender):
+
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.pack()
+
+    frame_label = ttk.Label(frame, text='Drive In Shape')
+    frame_label.pack(side='top')
+
+    rectangle_button = ttk.Button(frame, text='Rectangle')
+    rectangle_button.pack(side='top')
+
+    triangle_button = ttk.Button(frame, text='Triangle')
+    triangle_button.pack(side='top')
+
+    circle_button = ttk.Button(frame, text='Circle')
+    circle_button.pack(side='top')
+
+    clear_button = ttk.Button(frame, text='Clear')
+    clear_button.pack(side='bottom')
+
+    speed_entry = ttk.Entry(frame, width=10)
+    width_entry = ttk.Entry(frame, width=10)
+    length_entry = ttk.Entry(frame, width=10)
+    loops_entry = ttk.Entry(frame, width=10)
+
+    speed_label = ttk.Label(frame, text='Enter Speed:')
+    width_label = ttk.Label(frame, text='Enter Width:')
+    length_label = ttk.Label(frame, text='Enter Length:')
+    loops_label = ttk.Label(frame, text='Enter Loops:')
+
+    speed_label.pack(side='top')
+    speed_entry.pack(side='top')
+
+    width_label.pack(side='top')
+    width_entry.pack(side='top')
+
+    length_label.pack(side='top')
+    length_entry.pack(side='top')
+
+    loops_label.pack(side='top')
+    loops_entry.pack(side='top')
+
+
+
+    canvas = tkinter.Canvas(frame, width=750, height=500, bg='#0092ce')
+    canvas.pack()
+
+    rectangle_button["command"] = lambda: rectangle_functions(canvas, speed_entry, length_entry, width_entry, loops_entry, mqtt_sender)
+    circle_button["command"] = lambda: circle_functions(canvas, speed_entry, length_entry, loops_entry, mqtt_sender)
+    triangle_button["command"] = lambda: triangle_functions(canvas, speed_entry, length_entry, loops_entry, mqtt_sender)
+    clear_button["command"] = lambda: canvas.delete('all')
+    return frame
 
 def handle_pickup_led(mqtt_sender):
     print('Pickup')
@@ -214,14 +228,14 @@ def handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender):
     mqtt_sender.send_message('rectangle', [speed_entry.get(), length_entry.get(), width_entry.get()])
 
 
-def handle_triangle(speed_entry, length_entry, mqtt_sender):
-    print('Drive Triangle', speed_entry.get(), length_entry.get())
-    mqtt_sender.send_message('triangle', [speed_entry.get(), length_entry.get()])
+def handle_triangle(speed_entry, length_entry, loops_entry, mqtt_sender):
+    print('Drive Triangle', speed_entry.get(), length_entry.get(), loops_entry.get())
+    mqtt_sender.send_message('triangle', [speed_entry.get(), length_entry.get(), loops_entry.get()])
 
 
-def handle_circle(speed_entry, length_entry, mqtt_sender):
-    print('Drive Circle', speed_entry.get(), length_entry.get())
-    mqtt_sender.send_message('circle', [speed_entry.get(), length_entry.get()])
+def handle_circle(speed_entry, length_entry, loops_entry, mqtt_sender):
+    print('Drive Circle', speed_entry.get(), length_entry.get(), loops_entry.get())
+    mqtt_sender.send_message('circle', [speed_entry.get(), length_entry.get(), loops_entry.get()])
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame, camera_frame):
@@ -234,6 +248,17 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     color_frame.grid(row=3, column=0)
     camera_frame.grid(row=0, column=0)
 
+def rectangle_functions(canvas, speed_entry, length_entry, width_entry, mqtt_sender):
+    canvas.create_rectangle(150, 100, 600, 400, fill='black')
+    handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender)
+
+def triangle_functions(canvas, speed_entry, length_entry, mqtt_sender):
+    canvas.create_polygon(150, 75, 600, 75, 375, 450, fill='black')
+    handle_triangle(speed_entry, length_entry, mqtt_sender)
+
+def circle_functions(canvas, speed_entry, length_entry, mqtt_sender):
+    canvas.create_oval(250, 150, 500, 400, fill='black')
+    handle_circle(speed_entry, length_entry, mqtt_sender)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

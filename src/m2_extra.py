@@ -81,20 +81,38 @@ def go_until_distance_is_within_beep(robot, delta, inches, speed, rate):
                 break
 
 
-def map_rectangle(robot, speed, width, length):
-    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
-    robot.drive_system.left_motor.turn_on(speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(width, speed)
-    robot.drive_system.left_motor.turn_on(speed)
+def map_rectangle(robot, speed, width, length, loops):
+    for k in range(loops):
+        for _ in range(2):
+            robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+            robot.drive_system.left_motor.turn_on(speed)
+            start = time.time()
+            while True:
+                current = time.time()
+                if current - start >= 1:
+                    break
+            robot.drive_system.left_motor.turn_off(speed)
+            robot.drive_system.go_straight_for_inches_using_encoder(width, speed)
+            robot.drive_system.left_motor.turn_on(speed)
+            start = time.time()
+            while True:
+                current = time.time()
+                if current - start >= 1:
+                    break
+            robot.drive_system.left_motor.turn_off(speed)
 
 
-def map_triangle(robot, speed, length):
-    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
-    robot.drive_system.left_motor.turn_on(speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
-    robot.drive_system.left_motor.turn_on(speed)
-    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
-    robot.drive_system.left_motor.turn_on(speed)
+def map_triangle(robot, speed, length, loops):
+    for k in range(loops):
+        for _ in range(2):
+            robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+            robot.drive_system.left_motor.turn_on(speed)
+            start = time.time()
+            while True:
+                current = time.time()
+                if current - start >= 1:
+                    break
+            robot.drive_system.left_motor.turn_off(speed)
 
 
 def map_circle(robot, speed, length):

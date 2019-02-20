@@ -159,16 +159,16 @@ class Receiver(object):
         print('Got Find and Pick Up Tone')
         m3_extra.m3_camera_counterclockwise(int(speed), int(area))
 
-    def m2_rectangle(self, speed, width, length):
+    def m2_rectangle(self, speed, width, length, loops):
         print('Driving Retangle')
-        m2_extra.map_rectangle(int(speed), int(width), int(length))
+        m2_extra.map_rectangle(int(speed), int(width), int(length), int(loops))
 
-    def m2_triangle(self, speed, length):
+    def m2_triangle(self, speed, length, loops):
         print('Driving Triangle')
-        m2_extra.map_triangle(int(speed), int(length))
+        m2_extra.map_triangle(int(speed), int(length), int(loops))
 
-    def m2_triangle(self, speed, length):
+    def m2_triangle(self, speed, length, loops):
         print('Driving Circle')
-        m2_extra.map_circle(int(speed), int(length))
+        m2_extra.map_circle(int(speed), int(length), int(loops))
 
 
