@@ -185,7 +185,24 @@ def get_sprint_3_test_frame(window, mqtt_sender):
 
     return frame
 
+def get_sprint_3_frame(window, mqtt_sender):
+    """
+    This function obtains the GUI frame for the actual run of the
+    program.
+    """
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    camera_cal_label = ttk.Label(frame, text='Camera Calibration')
+
+    camera_cal_label.grid(row=0, column=1)
+
+
+    return frame
+
 # Handles for run time buttons
+
+
 
 # Handles for test buttons
 

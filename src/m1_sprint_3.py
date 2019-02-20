@@ -9,6 +9,7 @@
 import rosebot
 import time
 import random
+import m1_extra
 
 class m1_data_storage(object):
     """
@@ -16,9 +17,8 @@ class m1_data_storage(object):
     The functions called in the program will be able to mutate and
     obtain the data in an object called run_data that is of
     this class.
-    This object is to be defined in m1_run_on_this_robot and passed
-    to the functions via the delegate for the main run.
-    For test functions it will be defined in the delegate.
+
+    This object is defined will be defined in the delegate.
     """
     def __init__(self):
         # camera calibration variables
@@ -34,11 +34,37 @@ class m1_data_storage(object):
         self.speed = 0
         self.turn_time = 0.4 #preset based on tests
         self.turn_time_threshold = 0.0
+        # score variable
+        self.human_score = 0
+        self.robot_score = 0
+        self.winning_score = 0
+        self.winner = ''
 
     def set_difficulty(self, diff):
         # sets the difficulty based on the presets 1 through 5
         self.speed = diff * 20
         self.turn_time_threshold = diff * 0.05
+
+    def check_score(self):
+        # determines winner
+        if self.robot_score == self.winning_score:
+            self.winner = 'robot'
+            return self.winner
+        elif self.robot_score == self.winning_score:
+            self.winner = 'human'
+            return self.winner
+        # returns the game stats
+        if self.robot_score == self.human_score:
+            print('It is all tied up!')
+            print('Score h/r is: ', self.human_score, self.robot_score)
+        elif self.robot_score > self.human_score:
+            print('Robot is winning!')
+            print('Score h/r is: ', self.human_score, self.robot_score)
+        else:
+            print('Human is winning!')
+            print('Score h/r is: ', self.human_score, self.robot_score)
+
+
 
 
 
@@ -164,10 +190,30 @@ def m1_dive_for_ball(robot, run_data):
     robot.drive_system.left_motor.turn_on(l * run_data.speed)
     robot.drive_system.right_motor.turn_on(r * run_data.speed)
     time.sleep(random.uniform(run_data.turn_time - run_data.turn_time_threshold, run_data.turn_time + run_data.turn_time_threshold))
-    robot.drive_system.right_motor.turn_off()
-    robot.drive_system.left_motor.turn_off()
+    robot.drive_system.stop()
     # goes straight until the edge of the red goalie box
     print('Blocking Ball')
     robot.drive_system.go_straight_until_color_is_not('Red')
 
-    
+def m1_set_up_ball(robot, run_data):
+    """
+    Finds the ball and picks it up. If the ball is in the goal zone
+    which is blue then the score will increase.
+
+    Checks if there is a winner and if there is it ends the game.
+
+    :type robot: rosebot.RoseBot
+    :type run_data: m1_data_storage
+    """
+    # finds object and picks it up
+    m1_extra.clockwise_find_object(robot, 50, run_data.min_area)
+    # checks the color the robot is on and changes score accordingly
+    if robot.sensor_system.color_sensor.get_color_as_name() == 'Blue':
+        run_data.human_score += 1
+    else:
+        run_data.robot_score += 1
+    winner = run_data.check_score()
+    if winner == 'robot':
+        print('The robot wins!')
+    elif winner == 'human':
+        print('The human wins!')
