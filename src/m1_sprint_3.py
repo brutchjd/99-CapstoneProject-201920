@@ -83,6 +83,10 @@ def m1_calibrate_camera_close(robot, run_data):
     run_data.close_center_y = robot.sensor_system.camera.get_biggest_blob().center.y
     run_data.max_area = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
 
+    print('max area', run_data.max_area)
+    print('x center', run_data.close_center_x)
+    print('y center', run_data.close_center_y)
+
 
 def m1_calibrate_camera_far(robot, run_data):
     """
@@ -100,6 +104,10 @@ def m1_calibrate_camera_far(robot, run_data):
     run_data.far_center_x = robot.sensor_system.camera.get_biggest_blob().center.x
     run_data.far_center_y = robot.sensor_system.camera.get_biggest_blob().center.y
     run_data.min_area = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
+
+    print('min area', run_data.min_area)
+    print('x center', run_data.far_center_x)
+    print('y center', run_data.far_center_y)
 
 def m1_get_direction(robot, run_data):
     """

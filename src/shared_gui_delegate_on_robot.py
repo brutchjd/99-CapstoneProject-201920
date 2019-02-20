@@ -21,6 +21,7 @@ class Receiver(object):
         self.quit_bool = False
         self.m1_run_data = m1_sprint_3.m1_data_storage
 
+
     def forward(self, lws, rws):
         print('Got Forward', lws, rws)
         self.robot.drive_system.go(int(lws), int(rws))
@@ -179,17 +180,13 @@ class Receiver(object):
         print('Got Test Far Calibration')
         run_data = m1_sprint_3.m1_data_storage
         m1_sprint_3.m1_calibrate_camera_far(self.robot, run_data)
-        print('min area', run_data.min_area)
-        print('x center', run_data.far_center_x)
-        print('y center', run_data.far_center_y)
+
 
     def m1_test_close_calibration(self):
         print('Got Test Close Calibration')
         run_data = m1_sprint_3.m1_data_storage
         m1_sprint_3.m1_calibrate_camera_close(self.robot, run_data)
-        print('max area', run_data.min_area)
-        print('x center', run_data.close_center_x)
-        print('y center', run_data.close_center_y)
+
 
     def go_forward_until_scared(self, speed, intensity):
         print('Scooby Running')

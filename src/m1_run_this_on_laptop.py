@@ -54,7 +54,8 @@ def main():
     #find_object_frame = get_find_object_frame(main_frame, mqtt_sender)
     #pickup_led_frame = get_pickup_LED_frame(main_frame, mqtt_sender)
 
-    test_frame = get_sprint_3_test_frame(main_frame, mqtt_sender)
+    #test_frame = get_sprint_3_test_frame(main_frame, mqtt_sender)
+    sp3f = get_sprint_3_frame(main_frame, mqtt_sender)
 
 
     # -------------------------------------------------------------------------
@@ -63,7 +64,8 @@ def main():
 
     #grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame, color_frame, pickup_led_frame)
 
-    test_frame.grid(row=0, column=0)
+    #test_frame.grid(row=1, column=3)
+    sp3f.grid(row=0, column=0)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -196,19 +198,26 @@ def get_sprint_3_frame(window, mqtt_sender):
     camera_cal_label = ttk.Label(frame, text='Camera Calibration')
     close_calibration_button = ttk.Button(frame, text='Close Ball Calibration')
     far_calibration_button = ttk.Button(frame, text='Far Ball Calibration')
+    help_label = ttk.Label(frame, text='Click here to find out how to play!')
+    help_button = ttk.Button(frame, text='Instructions')
 
 
-    camera_cal_label.grid(row=0, column=1)
-    close_calibration_button.grid(row=1, column=0)
-    far_calibration_button.grid(row=1, column=1)
+    help_label.grid(row=0, column=0)
+    help_button.grid(row=0, column=1)
+    camera_cal_label.grid(row=1, column=0)
+    close_calibration_button.grid(row=2, column=0)
+    far_calibration_button.grid(row=2, column=1)
 
-    far_calibration_button['command'] = lambda: handle_far_calibration(mqtt_sender)
-    close_calibration_button['command'] = lambda: handle_close_calibration(mqtt_sender)
+    far_calibration_button['command'] = lambda: handle_far_cal(mqtt_sender)
+    close_calibration_button['command'] = lambda: handle_close_cal(mqtt_sender)
 
     return frame
 
 # Handles for run time buttons
 
+def handle_far_cal(mqtt_sender):
+    print('Sending Far Calibration')
+    mqtt_sender.send_message('')
 
 
 # Handles for test buttons
