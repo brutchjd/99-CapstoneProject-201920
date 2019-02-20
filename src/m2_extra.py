@@ -115,7 +115,17 @@ def map_triangle(robot, speed, length, loops):
             robot.drive_system.left_motor.turn_off(speed)
 
 
-def map_circle(robot, speed, length):
-    pass
+def map_circle(robot, speed, length, duration):
+
+    robot.drive_system.right_motor.turn_on(speed)
+    robot.drive_system.left_motor.turn_on(length)
+    start = time.time()
+    while True:
+        current = time.time()
+        if current - start >= duration:
+            break
+    robot.drive_system.right_motor.turn_off
+    robot.drive_system.left_motor.turn_off
+
 
 

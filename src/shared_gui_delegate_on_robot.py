@@ -167,7 +167,7 @@ class Receiver(object):
         print('Driving Triangle')
         m2_extra.map_triangle(int(speed), int(length), int(loops))
 
-    def m2_triangle(self, speed, length, loops):
+    def m2_circle(self, speed, length, loops):
         print('Driving Circle')
         m2_extra.map_circle(int(speed), int(length), int(loops))
 

@@ -225,17 +225,17 @@ def handle_camera_counterclockwise(speed_entry, area_entry, mqtt_sender):
 
 def handle_rectangle(speed_entry, length_entry, width_entry, loops_entry, mqtt_sender):
     print('Drive Rectangle', speed_entry.get(), length_entry.get(), width_entry.get(), loops_entry.get())
-    mqtt_sender.send_message('rectangle', [speed_entry.get(), length_entry.get(), width_entry.get(), loops_entry.get()])
+    mqtt_sender.send_message('m2_rectangle', [speed_entry.get(), length_entry.get(), width_entry.get(), loops_entry.get()])
 
 
 def handle_triangle(speed_entry, length_entry, loops_entry, mqtt_sender):
     print('Drive Triangle', speed_entry.get(), length_entry.get(), loops_entry.get())
-    mqtt_sender.send_message('triangle', [speed_entry.get(), length_entry.get(), loops_entry.get()])
+    mqtt_sender.send_message('m2_triangle', [speed_entry.get(), length_entry.get(), loops_entry.get()])
 
 
 def handle_circle(speed_entry, length_entry, loops_entry, mqtt_sender):
     print('Drive Circle', speed_entry.get(), length_entry.get(), loops_entry.get())
-    mqtt_sender.send_message('circle', [speed_entry.get(), length_entry.get(), loops_entry.get()])
+    mqtt_sender.send_message('m2_circle', [speed_entry.get(), length_entry.get(), loops_entry.get()])
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame, camera_frame):
