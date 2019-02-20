@@ -9,6 +9,8 @@
 import m2_extra
 import m1_extra
 import m3_extra
+import m1_sprint_3
+import rosebot
 
 class Receiver(object):
 
@@ -171,6 +173,13 @@ class Receiver(object):
         print('Driving Circle')
         m2_extra.map_circle(int(speed), int(length), int(loops))
 
-    
+    def m1_test_far_calibration(self):
+        print('Got Test Far Calibration')
+        run_data = m1_sprint_3.m1_data_storage
+        m1_sprint_3.m1_calibrate_camera_far(self.robot, run_data)
 
+    def m1_test_close_calibration(self):
+        print('Got Test Close Calibration')
+        run_data = m1_sprint_3.m1_data_storage
+        m1_sprint_3.m1_calibrate_camera_close(self.robot, run_data)
 

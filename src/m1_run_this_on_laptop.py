@@ -44,7 +44,7 @@ def main():
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
 
-    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, color_frame = get_shared_frames(main_frame, mqtt_sender)
+    #teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, color_frame = get_shared_frames(main_frame, mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.
@@ -54,13 +54,16 @@ def main():
     #find_object_frame = get_find_object_frame(main_frame, mqtt_sender)
     #pickup_led_frame = get_pickup_LED_frame(main_frame, mqtt_sender)
 
+    test_frame = get_sprint_3_test_frame(main_frame, mqtt_sender)
 
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
 
-    grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame, color_frame, pickup_led_frame)
+    #grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame, color_frame, pickup_led_frame)
+
+    test_frame.grid(row=0, column=0)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -174,16 +177,18 @@ def get_sprint_3_test_frame(window, mqtt_sender):
     far_calibration_button['command'] = lambda: handle_far_calibration(mqtt_sender)
     close_calibration_button['command'] = lambda: handle_close_calibration(mqtt_sender)
 
+    return frame
+
 # Handles for run time buttons
 
 # Handles for test buttons
 
 def handle_far_calibration(mqtt_sender):
-    print('Sending Far Calibration')
+    print('Sending Test Far Calibration')
     mqtt_sender.send_message('m1_test_far_calibration', [])
 
 def handle_close_calibration(mqtt_sender):
-    print('Sending Close Calibration')
+    print('Sending Test Close Calibration')
     mqtt_sender.send_message('m1_test_close_calibration', [])
 
 
