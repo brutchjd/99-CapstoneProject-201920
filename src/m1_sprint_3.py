@@ -8,6 +8,7 @@
 
 import rosebot
 import time
+import random
 
 class m1_data_storage(object):
     """
@@ -150,13 +151,19 @@ def m1_dive_for_ball(robot, run_data):
     :type run_data: m1_data_storage
     """
 
+    # determines multipliers for speed to turn the correct direction
     if run_data.ball_direction == 'left':
         l = -1
         r = 1
     if run_data.ball_direction == 'right':
         l = 1
         r = -1
-
+    # turns the robot
     robot.drive_system.left_motor.turn_on(l * run_data.speed)
     robot.drive_system.right_motor.turn_on(r * run_data.speed)
-    time.sleep()
+    turn_time = random.uniform(run_data.turn_time - run_data.turn_time_threshold, run_data.turn_time + run_data.turn_time_threshold)
+    time.sleep(turn_time)
+    robot.drive_system.right_motor.turn_off()
+    robot.drive_system.left_motor.turn_off()
+    # goes straight until the edge of the goalie box
+    robot.drive_system.go_straight_until_color_is_not('Red')
