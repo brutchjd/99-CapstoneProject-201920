@@ -34,14 +34,14 @@ def main():
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
-    tabControl = ttk.Notebook(root)
-    tab1 = ttk.Frame(tabControl)
-    tabControl.add(tab1, text='Shared Gui')
-    tabControl.grid()
+    tabcontrol = ttk.Notebook(root)
+    tab1 = ttk.Frame(tabcontrol)
+    tabcontrol.add(tab1, text='Shared Gui')
+    tabcontrol.grid()
 
-    tab2 = ttk.Frame(tabControl)
-    tabControl.add(tab2, text='Individual')
-    tabControl.grid()
+    tab2 = ttk.Frame(tabcontrol)
+    tabcontrol.add(tab2, text='Individual')
+    tabcontrol.grid()
 
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
     main_frame.grid()
@@ -49,7 +49,8 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, color_frame = get_shared_frames(main_frame, mqtt_sender)
+    teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, color_frame = get_shared_frames(main_frame,
+                                                                                                      mqtt_sender)
 
     # -------------------------------------------------------------------------
     # Frames that are particular to my individual contributions to the project.

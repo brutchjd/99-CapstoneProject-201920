@@ -10,7 +10,6 @@ import rosebot
 import time
 
 
-
 def m3_camera_clockwise(speed, area):
     robot = rosebot.RoseBot()
     robot.drive_system.spin_clockwise_until_sees_object(speed, area)
@@ -37,12 +36,10 @@ def m3_camera_counterclockwise(speed, area):
     m3_pickup(10)
 
 
-
 def m3_pickup(freq, rate):
     robot = rosebot.RoseBot()
     go_until_distance_is_within_tone(robot, 2, 0, 25, freq, rate)
     robot.arm_and_claw.raise_arm()
-
 
 
 def go_until_distance_is_within_tone(robot, delta, inches, speed, freq, rate):
