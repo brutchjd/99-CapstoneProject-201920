@@ -173,7 +173,7 @@ def get_shape_frame(window, mqtt_sender):
 
     speed_label = ttk.Label(frame, text='Enter Speed:')
     width_label = ttk.Label(frame, text='Enter Width:')
-    length_label = ttk.Label(frame, text='Enter Length:')
+    length_label = ttk.Label(frame, text='Enter Length/Inner Circle:')
     loops_label = ttk.Label(frame, text='Enter Loops:')
     duration_label = ttk.Label(frame, text='Enter Circle Duration:')
 
