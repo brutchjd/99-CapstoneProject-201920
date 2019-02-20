@@ -223,9 +223,9 @@ def handle_camera_counterclockwise(speed_entry, area_entry, mqtt_sender):
     mqtt_sender.send_message('m2_camera_counterclockwise', [speed_entry.get(), area_entry.get()])
 
 
-def handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender):
-    print('Drive Rectangle', speed_entry.get(), length_entry.get(), width_entry.get())
-    mqtt_sender.send_message('rectangle', [speed_entry.get(), length_entry.get(), width_entry.get()])
+def handle_rectangle(speed_entry, length_entry, width_entry, loops_entry, mqtt_sender):
+    print('Drive Rectangle', speed_entry.get(), length_entry.get(), width_entry.get(), loops_entry.get())
+    mqtt_sender.send_message('rectangle', [speed_entry.get(), length_entry.get(), width_entry.get(), loops_entry.get()])
 
 
 def handle_triangle(speed_entry, length_entry, loops_entry, mqtt_sender):
@@ -248,17 +248,17 @@ def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame
     color_frame.grid(row=3, column=0)
     camera_frame.grid(row=0, column=0)
 
-def rectangle_functions(canvas, speed_entry, length_entry, width_entry, mqtt_sender):
+def rectangle_functions(canvas, speed_entry, length_entry, width_entry, loops_entry,  mqtt_sender):
     canvas.create_rectangle(150, 100, 600, 400, fill='black')
-    handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender)
+    handle_rectangle(speed_entry, length_entry, width_entry, loops_entry, mqtt_sender)
 
-def triangle_functions(canvas, speed_entry, length_entry, mqtt_sender):
+def triangle_functions(canvas, speed_entry, length_entry, loops_entry, mqtt_sender):
     canvas.create_polygon(150, 75, 600, 75, 375, 450, fill='black')
-    handle_triangle(speed_entry, length_entry, mqtt_sender)
+    handle_triangle(speed_entry, length_entry, loops_entry, mqtt_sender)
 
-def circle_functions(canvas, speed_entry, length_entry, mqtt_sender):
+def circle_functions(canvas, speed_entry, length_entry, loops_entry, mqtt_sender):
     canvas.create_oval(250, 150, 500, 400, fill='black')
-    handle_circle(speed_entry, length_entry, mqtt_sender)
+    handle_circle(speed_entry, length_entry, loops_entry, mqtt_sender)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
