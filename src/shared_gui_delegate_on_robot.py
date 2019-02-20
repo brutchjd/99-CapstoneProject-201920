@@ -195,6 +195,10 @@ class Receiver(object):
         print('Scooby Running')
         m3_sprint_3.go_forward_until_scared(int(speed), int(intensity))
 
+    def scooby_snack(self, speed, area):
+        print('Snack Running')
+        m3_sprint_3.scooby_snack(int(speed), int(area))
+
     def m1_test_get_direction(self):
         print('Got Test Get Direction')
         run_data = m1_sprint_3.m1_data_storage

@@ -4,6 +4,7 @@ Authors: Professors for framework and Daniel Decker
 """
 import rosebot
 import time
+import m3_extra as cam
 
 def go_forward_until_scared(speed, intensity):
     robot = rosebot.RoseBot()
@@ -17,6 +18,10 @@ def go_forward_until_scared(speed, intensity):
     robot.drive_system.stop()
 
 
-def second_placeholder(x, y):
+def scooby_snack(speed, area):
     robot = rosebot.RoseBot()
+    cam.m3_camera_clockwise(speed, area)
+
+    robot.sound_system.speech_maker.speak('Ooh, a Scooby Snack')
+
 
