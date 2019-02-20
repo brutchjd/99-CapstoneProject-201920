@@ -16,8 +16,10 @@ def m3_camera_clockwise(speed, area):
 
     robot.drive_system.right_motor.turn_on(speed)
     while True:
-        object_x = robot.sensor_system.camera.get_biggest_blob().center.x
-        if object_x > 171 and object_x < 179:
+        blob = robot.sensor_system.camera.get_biggest_blob()
+        object_x = blob.center.x
+        area = blob.width * blob.height
+        if object_x > 155 and object_x < 165 and area > 300:
             robot.drive_system.right_motor.turn_off()
             break
     m3_pickup(10)
