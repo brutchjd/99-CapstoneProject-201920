@@ -169,9 +169,9 @@ class Receiver(object):
         print('Driving Triangle')
         m2_extra.map_triangle(int(speed), int(length), int(loops))
 
-    def m2_circle(self, speed, length, loops):
+    def m2_circle(self, speed, length, loops, duration):
         print('Driving Circle')
-        m2_extra.map_circle(int(speed), int(length), int(loops))
+        m2_extra.map_circle(int(speed), int(length), int(loops), int(duration))
 
     def m1_test_far_calibration(self):
         print('Got Test Far Calibration')

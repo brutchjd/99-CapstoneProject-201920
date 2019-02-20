@@ -5,8 +5,7 @@
   Winter term, 2018-2019.
 """
 
-import tkinter
-from tkinter import ttk
+
 import rosebot
 import mqtt_remote_method_calls as com
 import time

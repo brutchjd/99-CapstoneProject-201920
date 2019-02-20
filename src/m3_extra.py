@@ -8,7 +8,7 @@
 
 import rosebot
 import time
-import shared_gui
+
 
 
 def m3_camera_clockwise(speed, area):
