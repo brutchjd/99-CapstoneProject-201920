@@ -51,8 +51,10 @@ def main():
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
 
-    find_object_frame = get_find_object_frame(main_frame, mqtt_sender)
-    pickup_led_frame = get_pickup_LED_frame(main_frame, mqtt_sender)
+    #find_object_frame = get_find_object_frame(main_frame, mqtt_sender)
+    #pickup_led_frame = get_pickup_LED_frame(main_frame, mqtt_sender)
+
+
 
     # -------------------------------------------------------------------------
     # Grid the frames.
@@ -149,6 +151,42 @@ def handle_counterclockwise(speed_entry, area_entry, mqtt_sender):
 def handle_led_button(rateincrease_entry, intialrate_entry, mqtt_sender):
     print('Cycle Leds')
     mqtt_sender.send_message('m1_pickup_LED', [rateincrease_entry.get(), intialrate_entry.get()])
+
+# Sprint 3 Gui Frames
+
+def get_sprint_3_test_frame(window, mqtt_sender):
+    """
+    This function obtains the GUI frame for running tests on the
+    individual functions and small groups of functions that are
+    used in sprint 3.
+    """
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    frame_label = ttk.Label(frame, text='Sprint 3 Tests')
+    close_calibration_button = ttk.Button(frame, text='Run Test m1_calibrate_camera_close')
+    far_calibration_button = ttk.Button(frame, text='Run Test m1_calibrate_camera_far')
+
+    frame_label.grid(row=0, column=1)
+    close_calibration_button.grid(row=2, column=1)
+    far_calibration_button.grid(row=2, column=0)
+
+    far_calibration_button['command'] = lambda: handle_far_calibration(mqtt_sender)
+    close_calibration_button['command'] = lambda: handle_close_calibration(mqtt_sender)
+
+# Handles for run time buttons
+
+# Handles for test buttons
+
+def handle_far_calibration(mqtt_sender):
+    print('Sending Far Calibration')
+    mqtt_sender.send_message('m1_test_far_calibration', [])
+
+def handle_close_calibration(mqtt_sender):
+    print('Sending Close Calibration')
+    mqtt_sender.send_message('m1_test_close_calibration', [])
+
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
