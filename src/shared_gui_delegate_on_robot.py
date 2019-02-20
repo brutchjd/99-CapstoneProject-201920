@@ -184,7 +184,7 @@ class Receiver(object):
         run_data = m1_sprint_3.m1_data_storage
         m1_sprint_3.m1_calibrate_camera_close(self.robot, run_data)
 
-    def scooby_stuff(self, speed, intensity):
+    def go_forward_until_scared(self, speed, intensity):
         print('Scooby Running')
         m3_sprint_3.go_forward_until_scared(speed, intensity)
 
