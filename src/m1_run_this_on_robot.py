@@ -20,12 +20,13 @@ def main():
     #test_raise_arm()
     #test_calibrate_arm()
     #test_lower_arm()
-    real_demonstration()
+    #real_demonstration()
     #test_move_arm_to_position()
     #test_go_straight_for_inches_using_time()
     #test_go_straight_for_inches_using_encoder()
     #test_display_camera_data()
     #test_cycle_LEDs()
+    test_words()
 
 
 def test_raise_arm():
@@ -109,6 +110,10 @@ def test_cycle_LEDs():
     for k in range(20):
         m1_extra.cycle_LEDs(robot, 0.5, 5, 20-k)
 
+def test_words():
+    robot = rosebot.RoseBot()
+    robot.sound_system.speech_maker.speak('ruh, roh, raggy')
+    print('DONE')
 
 
 

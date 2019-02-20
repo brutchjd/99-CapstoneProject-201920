@@ -11,9 +11,9 @@
 
 import rosebot
 import time
-import tkinter
-from tkinter import ttk
-import m2_run_this_on_laptop as m2L
+#import tkinter
+#from tkinter import ttk
+#import m2_run_this_on_laptop as m2L
 
 
 def m2_pickup_beep(rate):
