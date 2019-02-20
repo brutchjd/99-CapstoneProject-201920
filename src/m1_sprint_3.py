@@ -155,15 +155,19 @@ def m1_dive_for_ball(robot, run_data):
     if run_data.ball_direction == 'left':
         l = -1
         r = 1
+        print('Turning left')
     if run_data.ball_direction == 'right':
         l = 1
         r = -1
+        print('Turning right')
     # turns the robot
     robot.drive_system.left_motor.turn_on(l * run_data.speed)
     robot.drive_system.right_motor.turn_on(r * run_data.speed)
-    turn_time = random.uniform(run_data.turn_time - run_data.turn_time_threshold, run_data.turn_time + run_data.turn_time_threshold)
-    time.sleep(turn_time)
+    time.sleep(random.uniform(run_data.turn_time - run_data.turn_time_threshold, run_data.turn_time + run_data.turn_time_threshold))
     robot.drive_system.right_motor.turn_off()
     robot.drive_system.left_motor.turn_off()
-    # goes straight until the edge of the goalie box
+    # goes straight until the edge of the red goalie box
+    print('Blocking Ball')
     robot.drive_system.go_straight_until_color_is_not('Red')
+
+    

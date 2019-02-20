@@ -19,6 +19,7 @@ class Receiver(object):
         """ :type   robot:  rosebot.RoseBot"""
         self.robot = robot
         self.quit_bool = False
+        self.m1_run_data = m1_sprint_3.m1_data_storage
 
     def forward(self, lws, rws):
         print('Got Forward', lws, rws)
@@ -188,3 +189,19 @@ class Receiver(object):
         print('Scooby Running')
         m3_sprint_3.go_forward_until_scared(int(speed), int(intensity))
 
+    def m1_test_get_direction(self):
+        print('Got Test Get Direction')
+        run_data = m1_sprint_3.m1_data_storage
+        run_data.max_area = 1000
+        run_data.min_area = 10
+        m1_sprint_3.m1_get_direction(self.robot, run_data)
+
+    def m1_test_dive(self):
+        print('Got Test Dive')
+        run_data = m1_sprint_3.m1_data_storage
+        run_data.turn_time_threshold = 0.0
+        run_data.ball_direction = 'left'
+        run_data.speed = 60
+        m1_sprint_3.m1_dive_for_ball(self.robot, run_data)
+        run_data.ball_direction = 'right'
+        m1_sprint_3.m1_dive_for_ball(self.robot, run_data)

@@ -169,13 +169,19 @@ def get_sprint_3_test_frame(window, mqtt_sender):
     frame_label = ttk.Label(frame, text='Sprint 3 Tests')
     close_calibration_button = ttk.Button(frame, text='Run Test m1_calibrate_camera_close')
     far_calibration_button = ttk.Button(frame, text='Run Test m1_calibrate_camera_far')
+    get_direction_button = ttk.Button(frame, text='Run Test m1_get_direction')
+    dive_button = ttk.Button(frame, text='Run Test m1_dive_for_ball')
 
     frame_label.grid(row=0, column=1)
     close_calibration_button.grid(row=2, column=1)
     far_calibration_button.grid(row=2, column=0)
+    get_direction_button.grid(row=3, column=1)
+    dive_button.grid(row=4, column=1)
 
     far_calibration_button['command'] = lambda: handle_far_calibration(mqtt_sender)
     close_calibration_button['command'] = lambda: handle_close_calibration(mqtt_sender)
+    get_direction_button['command'] = lambda: handle_get_direction(mqtt_sender)
+    dive_button['command'] = lambda: handle_dive_button(mqtt_sender)
 
     return frame
 
@@ -191,7 +197,13 @@ def handle_close_calibration(mqtt_sender):
     print('Sending Test Close Calibration')
     mqtt_sender.send_message('m1_test_close_calibration', [])
 
+def handle_get_direction(mqtt_sender):
+    print('Sending Test Get Direction')
+    mqtt_sender.send_message('m1_test_get_direction', [])
 
+def handle_dive_button(mqtt_sender):
+    print('Sending Test Dive')
+    mqtt_sender.send_message('m1_test_dive', [])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
