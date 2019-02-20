@@ -9,7 +9,7 @@ def go_forward_until_scared(speed, intensity):
     robot = rosebot.RoseBot()
     robot.drive_system.go_straight_until_intensity_is_less_than(intensity, speed)
     robot.sound_system.speech_maker.speak('Ruh roh, Raggy')
-    robot.drive_system.go(speed, -speed)
+    robot.drive_system.go((speed/2), (-speed/2))
     time.sleep(2*(100/speed))
     robot.drive_system.stop()
     time.sleep(1.0)
