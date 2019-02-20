@@ -8,6 +8,7 @@
 
 import rosebot
 import time
+import shared_gui
 
 
 def m3_camera_clockwise(speed, area):
@@ -75,3 +76,14 @@ def go_until_distance_is_within_tone(robot, delta, inches, speed, freq, rate):
                 robot.drive_system.left_motor.turn_off()
                 robot.drive_system.right_motor.turn_off()
                 break
+
+def go_until_dark(speed, intensity):
+    robot = rosebot.RoseBot()
+    robot.drive_system.go_straight_until_intensity_is_less_than(intensity, speed)
+
+def make_uh_oh_noise():
+    robot = rosebot.RoseBot()
+    robot.sound_system.speech_maker.speak('ruh roh, Raggy')
+
+def flashing_lights():
+    pass
