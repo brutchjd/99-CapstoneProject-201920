@@ -179,6 +179,7 @@ class Receiver(object):
         print('Got Test Far Calibration')
         run_data = m1_sprint_3.m1_data_storage
         m1_sprint_3.m1_calibrate_camera_far(self.robot, run_data)
+        run_data
 
     def m1_test_close_calibration(self):
         print('Got Test Close Calibration')
