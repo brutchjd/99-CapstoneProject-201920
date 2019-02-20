@@ -144,17 +144,18 @@ def map_circle(speed, length, loops, duration):
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Blue' or robot.sensor_system.color_sensor.get_color() == 2:
             robot.drive_system.go_until_distance_is_within(2, 0, 25)
             robot.arm_and_claw.raise_arm()
-            for _ in range(loops):
-                robot.drive_system.right_motor.turn_on(speed)
-                robot.drive_system.left_motor.turn_on(length)
-                start = time.time()
-                while True:
-                    current = time.time()
-                    if current - start >= duration:
-                        break
+            for k in range(loops):
+                    robot.drive_system.go_straight_for_inches_using_encoder(length, speed)
+                    robot.drive_system.left_motor.turn_on(speed)
+                    robot.drive_system.right_motor.turn_on(-1 * speed)
+                    start = time.time()
+                    while True:
+                        current = time.time()
+                        if current - start >= 5:
+                            break
                     robot.drive_system.right_motor.turn_off()
                     robot.drive_system.left_motor.turn_off()
-            break
+        break
 
 
 
