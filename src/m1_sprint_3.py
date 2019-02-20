@@ -217,3 +217,5 @@ def m1_set_up_ball(robot, run_data):
         print('The robot wins!')
     elif winner == 'human':
         print('The human wins!')
+    else:
+        print('Still Playing')

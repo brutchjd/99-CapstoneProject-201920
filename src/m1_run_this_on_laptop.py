@@ -194,9 +194,16 @@ def get_sprint_3_frame(window, mqtt_sender):
     frame.grid()
 
     camera_cal_label = ttk.Label(frame, text='Camera Calibration')
+    close_calibration_button = ttk.Button(frame, text='Close Ball Calibration')
+    far_calibration_button = ttk.Button(frame, text='Far Ball Calibration')
+
 
     camera_cal_label.grid(row=0, column=1)
+    close_calibration_button.grid(row=1, column=0)
+    far_calibration_button.grid(row=1, column=1)
 
+    far_calibration_button['command'] = lambda: handle_far_calibration(mqtt_sender)
+    close_calibration_button['command'] = lambda: handle_close_calibration(mqtt_sender)
 
     return frame
 
