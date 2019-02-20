@@ -168,10 +168,12 @@ def get_shape_frame(window, mqtt_sender):
     speed_entry = ttk.Entry(frame, width=10)
     width_entry = ttk.Entry(frame, width=10)
     length_entry = ttk.Entry(frame, width=10)
+    loops_entry = ttk.Entry(frame, width=10)
 
     speed_label = ttk.Label(frame, text='Enter Speed:')
     width_label = ttk.Label(frame, text='Enter Width:')
     length_label = ttk.Label(frame, text='Enter Length:')
+    loops_label = ttk.Label(frame, text='Enter Loops:')
 
     speed_label.pack(side='top')
     speed_entry.pack(side='top')
@@ -182,12 +184,17 @@ def get_shape_frame(window, mqtt_sender):
     length_label.pack(side='top')
     length_entry.pack(side='top')
 
+    loops_label.pack(side='top')
+    loops_entry.pack(side='top')
+
+
+
     canvas = tkinter.Canvas(frame, width=750, height=500, bg='#0092ce')
     canvas.pack()
 
-    rectangle_button["command"] = lambda: rectangle_functions(canvas, speed_entry, length_entry, width_entry, mqtt_sender)
-    circle_button["command"] = lambda: circle_functions(canvas, speed_entry, length_entry, mqtt_sender)
-    triangle_button["command"] = lambda: triangle_functions(canvas, speed_entry, length_entry, mqtt_sender)
+    rectangle_button["command"] = lambda: rectangle_functions(canvas, speed_entry, length_entry, width_entry, loops_entry, mqtt_sender)
+    circle_button["command"] = lambda: circle_functions(canvas, speed_entry, length_entry, loops_entry, mqtt_sender)
+    triangle_button["command"] = lambda: triangle_functions(canvas, speed_entry, length_entry, loops_entry, mqtt_sender)
     clear_button["command"] = lambda: canvas.delete('all')
     return frame
 
@@ -221,14 +228,14 @@ def handle_rectangle(speed_entry, length_entry, width_entry, mqtt_sender):
     mqtt_sender.send_message('rectangle', [speed_entry.get(), length_entry.get(), width_entry.get()])
 
 
-def handle_triangle(speed_entry, length_entry, mqtt_sender):
-    print('Drive Triangle', speed_entry.get(), length_entry.get())
-    mqtt_sender.send_message('triangle', [speed_entry.get(), length_entry.get()])
+def handle_triangle(speed_entry, length_entry, loops_entry, mqtt_sender):
+    print('Drive Triangle', speed_entry.get(), length_entry.get(), loops_entry.get())
+    mqtt_sender.send_message('triangle', [speed_entry.get(), length_entry.get(), loops_entry.get()])
 
 
-def handle_circle(speed_entry, length_entry, mqtt_sender):
-    print('Drive Circle', speed_entry.get(), length_entry.get())
-    mqtt_sender.send_message('circle', [speed_entry.get(), length_entry.get()])
+def handle_circle(speed_entry, length_entry, loops_entry, mqtt_sender):
+    print('Drive Circle', speed_entry.get(), length_entry.get(), loops_entry.get())
+    mqtt_sender.send_message('circle', [speed_entry.get(), length_entry.get(), loops_entry.get()])
 
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame, camera_frame):
