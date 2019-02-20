@@ -186,5 +186,5 @@ class Receiver(object):
 
     def go_forward_until_scared(self, speed, intensity):
         print('Scooby Running')
-        m3_sprint_3.go_forward_until_scared(speed, intensity)
+        m3_sprint_3.go_forward_until_scared(int(speed), int(intensity))
 

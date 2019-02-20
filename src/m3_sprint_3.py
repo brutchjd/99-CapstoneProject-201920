@@ -15,7 +15,8 @@ def go_forward_until_scared(intensity, speed):
     time.sleep(1.0)
     robot.drive_system.go_straight_for_seconds(5, speed)
     robot.drive_system.stop()
-    """Need a way to turn it 180 degrees"""
 
 
+def second_placeholder(x, y):
+    robot = rosebot.RoseBot()
 
