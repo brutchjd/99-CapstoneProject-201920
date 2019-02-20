@@ -37,11 +37,11 @@ def main():
     tabControl = ttk.Notebook(root)
     tab1 = ttk.Frame(tabControl)
     tabControl.add(tab1, text='Shared Gui')
-    tabControl.pack(expand=1, fill='both')
+    tabControl.grid()
 
     tab2 = ttk.Frame(tabControl)
     tabControl.add(tab2, text='Individual')
-    tabControl.pack(expand=1, fill='both')
+    tabControl.grid()
 
     main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
     main_frame.grid()
@@ -55,11 +55,12 @@ def main():
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     proximity_frame = get_individual_frame(main_frame, mqtt_sender)
+    scooby_frame = get_scooby_frame(tab2, mqtt_sender)
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
     grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame)
-
+    scooby_frame.grid()
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
@@ -130,6 +131,31 @@ def get_camera_frame(window, mqtt_sender):
 
     return frame
 
+def get_scooby_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief='ridge')
+    frame.grid()
+    frame_label = ttk.Label(frame, text='Scooby Scared')
+    frame_label.grid(row=0, column=0)
+
+    speed_label = ttk.Label(frame, text='Enter Speed:')
+    intensity_label = ttk.Label(frame, text='Enter Intensity (Darkness) Level:')
+
+    speed_entry = ttk.Entry(frame)
+    intensity_entry = ttk.Entry(frame)
+
+    start_button = ttk.Button(frame, text='Start Scooby')
+
+    speed_entry.grid(row=1, column=1)
+    intensity_entry.grid(row=1, column=2)
+    speed_label.grid(row=2, column=1)
+    intensity_label.grid(row=2, column=2)
+
+    start_button.grid(row=3, column=2)
+
+    start_button["command"] = lambda: go_forward_until_scared(speed_entry, intensity_entry, mqtt_sender)
+
+    return frame
+
 
 def handle_camera_clockwise(speed_entry, area_entry, mqtt_sender):
     print('Find and Pickup with Tone', speed_entry.get(), area_entry.get())
@@ -140,6 +166,9 @@ def handle_camera_counterclockwise(speed_entry, area_entry, mqtt_sender):
     print('Find and Pickup with Tone', speed_entry.get(), area_entry.get())
     mqtt_sender.send_message('m3_camera_counterclockwise', [speed_entry.get(), area_entry.get()])
 
+def go_forward_until_scared(speed_entry, intensity_entry, mqtt_sender):
+    print('Go Forward Until Darkness', speed_entry.get(), intensity_entry.get())
+    mqtt_sender.send_message('go_forward_until_scared', [speed_entry.get(), intensity_entry.get()])
 
 def grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, proximity_frame, color_frame):
     teleop_frame.grid(row=0, column=0)
