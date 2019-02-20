@@ -22,7 +22,7 @@ def m3_camera_clockwise(speed, area):
         if object_x > 155 and object_x < 165 and area > 300:
             robot.drive_system.right_motor.turn_off()
             break
-    m3_pickup(10)
+    m3_pickup(10, 10)
 
 
 def m3_camera_counterclockwise(speed, area):
@@ -35,7 +35,7 @@ def m3_camera_counterclockwise(speed, area):
         if object_x > 171 and object_x < 179:
             robot.drive_system.left_motor.turn_off()
             break
-    m3_pickup(10)
+    m3_pickup(10, 10)
 
 
 def m3_pickup(freq, rate):
