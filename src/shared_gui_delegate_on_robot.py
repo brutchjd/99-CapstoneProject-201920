@@ -198,6 +198,7 @@ class Receiver(object):
     def m1_test_get_direction(self):
         print('Got Test Get Direction')
         run_data = m1_sprint_3.m1_data_storage
+        run_data.speed = 60
         run_data.max_area = 1000
         run_data.min_area = 10
         m1_sprint_3.m1_get_direction(self.robot, run_data)

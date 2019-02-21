@@ -131,14 +131,11 @@ def m1_get_direction(robot, run_data):
     """
 
     while True:
-        area1 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
-        x_pos1 = robot.sensor_system.camera.get_biggest_blob().center.x
-        time.sleep(0.001)
-        area2 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
-        x_pos2 = robot.sensor_system.camera.get_biggest_blob().center.x
-        time.sleep(0.001)
-        area3 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
-        x_pos3 = robot.sensor_system.camera.get_biggest_blob().center.x
+        area1 = get_average_area(robot)
+        time.sleep(0.02)
+        area2 = get_average_area(robot)
+        time.sleep(0.02)
+        area3 = get_average_area(robot)
 
         # checks if ball is in court
         if area1 > run_data.min_area and area1 < run_data.max_area:
@@ -151,6 +148,19 @@ def m1_get_direction(robot, run_data):
                 break
     #makes the robot goalie dive in the predicted direction
     m1_dive_for_ball(robot, run_data)
+
+def get_average_area(robot):
+    a1 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
+    time.sleep(0.01)
+    a2 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
+    time.sleep(0.01)
+    a3 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
+    time.sleep(0.01)
+    a4 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
+    time.sleep(0.01)
+    a5 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
+    area = (a1 + a2 + a3 + a4 + a5) / 4
+    return area
 
 def m1_predict_direction(x1, x2, x3):
     """
