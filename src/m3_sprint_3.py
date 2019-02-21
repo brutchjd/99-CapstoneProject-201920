@@ -27,3 +27,4 @@ def scooby_snack(speed, area):
     robot = rosebot.RoseBot()
     cam.m3_camera_clockwise(speed, area)
     robot.sound_system.speech_maker.speak('Ooh, a Scooby Snack')
+    robot.arm_and_claw.lower_arm()
