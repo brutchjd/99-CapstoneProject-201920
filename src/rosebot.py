@@ -323,10 +323,12 @@ class DriveSystem(object):
         Requires that the user train the camera on the color of the object.
         """
         self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(-speed)
         while True:
             blob_area = self.sensor_system.camera.get_biggest_blob().width * self.sensor_system.camera.get_biggest_blob().height
             if blob_area > area:
                 self.right_motor.turn_off()
+                self.left_motor.turn_off()
                 print('Found Object')
                 break
 
