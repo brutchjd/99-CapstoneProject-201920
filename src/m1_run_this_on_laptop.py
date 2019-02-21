@@ -54,8 +54,8 @@ def main():
     #find_object_frame = get_find_object_frame(main_frame, mqtt_sender)
     #pickup_led_frame = get_pickup_LED_frame(main_frame, mqtt_sender)
 
-    #test_frame = get_sprint_3_test_frame(main_frame, mqtt_sender)
-    sp3f = get_sprint_3_frame(main_frame, mqtt_sender)
+    test_frame = get_sprint_3_test_frame(main_frame, mqtt_sender)
+    #sp3f = get_sprint_3_frame(main_frame, mqtt_sender)
 
 
     # -------------------------------------------------------------------------
@@ -64,8 +64,8 @@ def main():
 
     #grid_frames(teleop_frame, arm_frame, control_frame, drive_frame, sound_frame, find_object_frame, color_frame, pickup_led_frame)
 
-    #test_frame.grid(row=1, column=3)
-    sp3f.grid(row=0, column=0)
+    test_frame.grid(row=1, column=3)
+    #sp3f.grid(row=0, column=0)
 
     # -------------------------------------------------------------------------
     # The event loop:
