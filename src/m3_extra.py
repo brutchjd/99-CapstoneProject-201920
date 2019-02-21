@@ -12,11 +12,13 @@ import time
 
 def m3_camera_clockwise(speed, area):
     robot = rosebot.RoseBot()
+    print('placeholder')
     robot.drive_system.spin_clockwise_until_sees_object(speed, area)
-
+    print(speed, area)
     robot.drive_system.right_motor.turn_on(speed)
     while True:
         blob = robot.sensor_system.camera.get_biggest_blob()
+        print(blob)
         object_x = blob.center.x
         area = blob.width * blob.height
         if object_x > 155 and object_x < 165 and area > 300:
