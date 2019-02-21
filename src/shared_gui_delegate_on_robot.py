@@ -223,21 +223,17 @@ class Receiver(object):
     def m1_start_game(self, score, difficulty):
         print('Got Start Game')
         print('Setting up Game')
-        self.m1_run_data.winning_score = score
-        self.m1_run_data.set_difficulty(difficulty)
-        while True:
-            self.m1_run_data.round_button_pressed = False
-            m1_sprint_3.m1_get_direction(self.robot, self.m1_run_data)
-            if self.m1_run_data.winner == '':
-                print('Ending Game')
-                break
-            if not self.m1_run_data.round_button_pressed:
-                print('Press Next Round Button After Resetting Ball')
-                while True:
-                    if self.m1_run_data.round_button_pressed:
-                        break
-                    time.sleep(0.1)
+        print(score, difficulty)
+        self.m1_run_data.winning_score = int(score)
+        self.m1_run_data.speed = int(difficulty) * 20
+        self.m1_run_data.robot_score = 0
+        self.m1_run_data.human_score = 0
+        m1_sprint_3.m1_get_direction(self.robot, self.m1_run_data)
+
 
     def m1_round(self):
         print('Got Next Round')
-        self.m1_run_data.round_button_pressed = True
+        m1_sprint_3.m1_get_direction(self.robot, self.m1_run_data)
+        if not self.m1_run_data.winner == '':
+            print('Ending Game')
+            self.quit()

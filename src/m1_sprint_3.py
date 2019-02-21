@@ -38,32 +38,25 @@ class m1_data_storage(object):
         self.robot_score = 0
         self.winning_score = 0
         self.winner = ''
-        #game option
-        self.round_button_pressed = True
 
-    def set_difficulty(self, diff):
-        # sets the difficulty based on the presets 1 through 5
-        self.speed = diff * 20
-        self.turn_time_threshold = diff * 0.05
-
-    def check_score(self):
-        # returns the game stats
-        if self.robot_score == self.human_score:
-            print('It is all tied up!')
-            print('Score h/r is: ', self.human_score, self.robot_score)
-        elif self.robot_score > self.human_score:
-            print('Robot is winning!')
-            print('Score h/r is: ', self.human_score, self.robot_score)
-        else:
-            print('Human is winning!')
-            print('Score h/r is: ', self.human_score, self.robot_score)
-        # determines winner
-        if self.robot_score == self.winning_score:
-            self.winner = 'robot'
-            return self.winner
-        elif self.robot_score == self.winning_score:
-            self.winner = 'human'
-            return self.winner
+def check_score(run_data):
+    # returns the game stats
+    if run_data.robot_score == run_data.human_score:
+        print('It is all tied up!')
+        print('Score h/r is: ', run_data.human_score, run_data.robot_score)
+    elif run_data.robot_score > run_data.human_score:
+        print('Robot is winning!')
+        print('Score h/r is: ', run_data.human_score, run_data.robot_score)
+    else:
+        print('Human is winning!')
+        print('Score h/r is: ', run_data.human_score, run_data.robot_score)
+    # determines winner
+    if run_data.robot_score == run_data.winning_score:
+        run_data.winner = 'robot'
+        return run_data.winner
+    elif run_data.robot_score == run_data.winning_score:
+        run_data.winner = 'human'
+        return run_data.winner
 
 
 
@@ -131,11 +124,11 @@ def m1_get_direction(robot, run_data):
     """
 
     while True:
-        area1 = get_average_area(robot)
-        time.sleep(0.02)
-        area2 = get_average_area(robot)
-        time.sleep(0.02)
-        area3 = get_average_area(robot)
+        area1, x_pos1 = get_average_area(robot)
+        time.sleep(0.1)
+        area2, x_pos2 = get_average_area(robot)
+        time.sleep(0.1)
+        area3, x_pos3 = get_average_area(robot)
 
         # checks if ball is in court
         if area1 > run_data.min_area and area1 < run_data.max_area:
@@ -151,16 +144,21 @@ def m1_get_direction(robot, run_data):
 
 def get_average_area(robot):
     a1 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
-    time.sleep(0.01)
+    x1 = robot.sensor_system.camera.get_biggest_blob().center.x
+    time.sleep(0.03)
     a2 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
-    time.sleep(0.01)
+    x2 = robot.sensor_system.camera.get_biggest_blob().center.x
+    time.sleep(0.03)
     a3 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
-    time.sleep(0.01)
+    x3 = robot.sensor_system.camera.get_biggest_blob().center.x
+    time.sleep(0.03)
     a4 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
-    time.sleep(0.01)
-    a5 = robot.sensor_system.camera.get_biggest_blob().height * robot.sensor_system.camera.get_biggest_blob().width
-    area = (a1 + a2 + a3 + a4 + a5) / 4
-    return area
+    x4 = robot.sensor_system.camera.get_biggest_blob().center.x
+    area = (a1 + a2 + a3 + a4) / 4
+    x_pos = (x1 + x2 + x3 + x4) / 4
+    return area, x_pos
+
+
 
 def m1_predict_direction(x1, x2, x3):
     """
@@ -212,7 +210,7 @@ def m1_dive_for_ball(robot, run_data):
     # goes straight until the edge of the red goalie box
     print('Blocking Ball')
     robot.drive_system.go_straight_until_color_is_not('Red', run_data.speed)
-    #m1_set_up_ball(robot, run_data)
+    m1_set_up_ball(robot, run_data)
 
 def m1_set_up_ball(robot, run_data):
     """
@@ -228,10 +226,12 @@ def m1_set_up_ball(robot, run_data):
     m1_extra.clockwise_find_object(robot, 50, run_data.min_area)
     # checks the color the robot is on and changes score accordingly
     if robot.sensor_system.color_sensor.get_color_as_name() == 'Blue':
+        print('The Player Scored')
         run_data.human_score += 1
     else:
+        print('The Robot Scored')
         run_data.robot_score += 1
-    winner = run_data.check_score()
+    winner = check_score()
     if winner == 'robot':
         print('The robot wins!')
     elif winner == 'human':
