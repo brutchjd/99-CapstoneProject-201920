@@ -1,0 +1,32 @@
+Read these instructions before you begin!
+
+In this game you will be trying to shoot the ball at the robot goalie
+in order to score on him by making the ball into the blue goal area.
+The robot goalie will try to predict which way the ball is going
+and dive in that direction to stop the ball. The goalie will then
+look for where the ball ended up and if it is in the goal you will
+score a point. If the robot finds the ball outside of the goal then
+that is one point for the goalie. The first to get to the score
+you entered will win the game. You can also set the difficulty from
+1 to 5 which will change the speed of the robot as well as the
+accuracy of the robot goalie when it turns to block the ball.
+At the end of each round the robot will have the ball in hand and
+you can drive it to place the ball wherever you want on the court and
+move the robot back to the goal position remotely.
+
+Begin by putting the ball close to the front of the robot. Then press
+Close Ball Calibration. Then place the ball at the far end of the
+court and press Far Ball Calibration.
+
+After the camera is calibrated you may enter the score you want to
+play to and the difficulty from 1 to 5.
+
+When you are ready to play press the Start Game button. Make sure
+that the ball is stationary when you begin as well as at the start
+each round. After the first round you must press the Next Round
+button when the ball is stationary. When the robot goalie is ready
+you simply have to roll the ball towards the goal and the robot will
+try to block it. Once the robot has picked up the ball, you will
+have to drive it to anywhere on the court then lower the arm to
+release it. Then drive the robot back to the starting position and
+press next round.

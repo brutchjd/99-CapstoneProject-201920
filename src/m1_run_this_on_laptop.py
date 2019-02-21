@@ -201,24 +201,85 @@ def get_sprint_3_frame(window, mqtt_sender):
     help_label = ttk.Label(frame, text='Click here to find out how to play!')
     help_button = ttk.Button(frame, text='Instructions')
 
+    game_label = ttk.Label(frame, text='Game Controls')
+    score_entry_label = ttk.Label(frame, text='Enter Score to Play to: ')
+    difficulty_label = ttk.Label(frame, text='Enter Difficulty (1-5): ')
+    difficulty_entry = ttk.Entry(frame)
+    score_entry = ttk.Entry(frame)
+    game_start = ttk.Button(frame, text='Start Game')
+    round_button = ttk.Button(frame, text='Next Round')
 
+    #scoreboard_label = ttk.Label(frame, text='Scoreboard')
+    #player_label = ttk.Label(frame, text='Player')
+    #robot_label = ttk.Label(frame, text='Robot')
+    #goal_label = ttk.Label(frame, text='Goal')
+
+    #player_score = ttk.Label(frame, text='0')
+    #robot_score = ttk.Label(frame, text='0')
+    #goal_score = ttk.Label(frame, text=score_entry.get())
+
+    #grids
     help_label.grid(row=0, column=0)
     help_button.grid(row=0, column=1)
     camera_cal_label.grid(row=1, column=0)
     close_calibration_button.grid(row=2, column=0)
     far_calibration_button.grid(row=2, column=1)
+    game_label.grid(row=3, column=0)
+    score_entry.grid(row=4, column=1)
+    score_entry_label.grid(row=4, column=0)
+    difficulty_label.grid(row=5, column=0)
+    difficulty_entry.grid(row=5, column=1)
+    game_start.grid(row=6, column=0)
+    round_button.grid(row=6, column=1)
+    #scoreboard_label.grid(row=7, column=0)
+    #player_label.grid(row=8, column=0)
+    #robot_label.grid(row=8, column=1)
+    #goal_label.grid(row=8, column=2)
+    #player_score.grid(row=9, column=0)
+    #robot_score.grid(row=9, column=1)
+    #goal_score.grid(row=9, column=2)
+
+    #shared frames
+    teleop_frame = shared_gui.get_teleoperation_frame(window, mqtt_sender)
+    arm_frame = shared_gui.get_arm_frame(window, mqtt_sender)
+    control_frame = shared_gui.get_control_frame(window, mqtt_sender)
+
+    #shared frames grid
+    teleop_frame.grid(row=7, column=0)
+    arm_frame.grid(row=8, column=0)
+    control_frame.grid(row=9, column=0)
 
     far_calibration_button['command'] = lambda: handle_far_cal(mqtt_sender)
     close_calibration_button['command'] = lambda: handle_close_cal(mqtt_sender)
+    help_button['command'] = lambda: handle_help()
+
+    game_start['command'] = lambda: handle_game_start(mqtt_sender, score_entry.get(), difficulty_entry.get())
+    round_button['command'] = lambda: handle_round_button(mqtt_sender)
 
     return frame
 
 # Handles for run time buttons
 
+def handle_help():
+    file = open('m1_instructions.txt', 'r')
+    for k in file:
+        print(k)
+
 def handle_far_cal(mqtt_sender):
     print('Sending Far Calibration')
-    mqtt_sender.send_message('')
+    mqtt_sender.send_message('m1_far_calibration', [])
 
+def handle_close_cal(mqtt_sender):
+    print('Sending Close Calibration')
+    mqtt_sender.send_message('m1_close_calibration', [])
+
+def handle_game_start(mqtt_sender, score, difficulty):
+    print('Starting Game')
+    mqtt_sender.send_message('m1_start_game', [int(score), int(difficulty)])
+
+def handle_round_button(mqtt_sender):
+    print('Next Round')
+    mqtt_sender.send_message('m1_round', [])
 
 # Handles for test buttons
 

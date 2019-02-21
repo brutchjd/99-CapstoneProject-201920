@@ -39,6 +39,8 @@ class m1_data_storage(object):
         self.robot_score = 0
         self.winning_score = 0
         self.winner = ''
+        #game option
+        self.round_button_pressed = True
 
     def set_difficulty(self, diff):
         # sets the difficulty based on the presets 1 through 5
@@ -46,13 +48,6 @@ class m1_data_storage(object):
         self.turn_time_threshold = diff * 0.05
 
     def check_score(self):
-        # determines winner
-        if self.robot_score == self.winning_score:
-            self.winner = 'robot'
-            return self.winner
-        elif self.robot_score == self.winning_score:
-            self.winner = 'human'
-            return self.winner
         # returns the game stats
         if self.robot_score == self.human_score:
             print('It is all tied up!')
@@ -63,7 +58,13 @@ class m1_data_storage(object):
         else:
             print('Human is winning!')
             print('Score h/r is: ', self.human_score, self.robot_score)
-
+        # determines winner
+        if self.robot_score == self.winning_score:
+            self.winner = 'robot'
+            return self.winner
+        elif self.robot_score == self.winning_score:
+            self.winner = 'human'
+            return self.winner
 
 
 

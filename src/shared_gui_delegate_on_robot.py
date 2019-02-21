@@ -12,6 +12,7 @@ import m3_extra
 import m1_sprint_3
 import rosebot
 import m3_sprint_3
+import time
 
 class Receiver(object):
 
@@ -181,12 +182,10 @@ class Receiver(object):
         run_data = m1_sprint_3.m1_data_storage
         m1_sprint_3.m1_calibrate_camera_far(self.robot, run_data)
 
-
     def m1_test_close_calibration(self):
         print('Got Test Close Calibration')
         run_data = m1_sprint_3.m1_data_storage
         m1_sprint_3.m1_calibrate_camera_close(self.robot, run_data)
-
 
     def go_forward_until_scared(self, speed, intensity):
         print('Scooby Running')
@@ -212,3 +211,33 @@ class Receiver(object):
         m1_sprint_3.m1_dive_for_ball(self.robot, run_data)
         run_data.ball_direction = 'right'
         m1_sprint_3.m1_dive_for_ball(self.robot, run_data)
+
+    def m1_close_calibration(self):
+        print('Got Close Calibration')
+        m1_sprint_3.m1_calibrate_camera_close(self.robot, self.m1_run_data)
+
+    def m1_far_calibration(self):
+        print('Got Far Calibration')
+        m1_sprint_3.m1_calibrate_camera_far(self.robot, self.m1_run_data)
+
+    def m1_start_game(self, score, difficulty):
+        print('Got Start Game')
+        print('Setting up Game')
+        self.m1_run_data.winning_score = score
+        self.m1_run_data.set_difficulty(difficulty)
+        while True:
+            self.m1_run_data.round_button_pressed = False
+            m1_sprint_3.m1_get_direction(self.robot, self.m1_run_data)
+            if self.m1_run_data.winner == '':
+                print('Ending Game')
+                break
+            if not self.m1_run_data.round_button_pressed:
+                print('Press Next Round Button After Resetting Ball')
+                while True:
+                    if self.m1_run_data.round_button_pressed:
+                        break
+                    time.sleep(0.1)
+
+    def m1_round(self):
+        print('Got Next Round')
+        self.m1_run_data.round_button_pressed = True
