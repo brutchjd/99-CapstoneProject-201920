@@ -32,8 +32,7 @@ class m1_data_storage(object):
         self.ball_direction = ''
         # robot movement/difficulty variables
         self.speed = 0
-        self.turn_time = 0.4 #preset based on tests
-        self.turn_time_threshold = 0.0
+        #self.turn_time = 0.06 * self.speed #preset based on tests
         # score variable
         self.human_score = 0
         self.robot_score = 0
@@ -198,11 +197,12 @@ def m1_dive_for_ball(robot, run_data):
     # turns the robot
     robot.drive_system.left_motor.turn_on(l * run_data.speed)
     robot.drive_system.right_motor.turn_on(r * run_data.speed)
-    time.sleep(random.uniform(run_data.turn_time - run_data.turn_time_threshold, run_data.turn_time + run_data.turn_time_threshold))
+    time.sleep(60.0 / run_data.speed) #based on tests
     robot.drive_system.stop()
     # goes straight until the edge of the red goalie box
     print('Blocking Ball')
-    robot.drive_system.go_straight_until_color_is_not('Red')
+    robot.drive_system.go_straight_until_color_is_not('Red', run_data.speed)
+    #m1_set_up_ball(robot, run_data)
 
 def m1_set_up_ball(robot, run_data):
     """

@@ -1,5 +1,8 @@
 Read these instructions before you begin!
 
+Ever wanted to practice you penalty kicks but have no one to be the
+goalie? Well this is the game for you!
+
 In this game you will be trying to shoot the ball at the robot goalie
 in order to score on him by making the ball into the blue goal area.
 The robot goalie will try to predict which way the ball is going

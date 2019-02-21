@@ -205,7 +205,6 @@ class Receiver(object):
     def m1_test_dive(self):
         print('Got Test Dive')
         run_data = m1_sprint_3.m1_data_storage
-        run_data.turn_time_threshold = 0.0
         run_data.ball_direction = 'left'
         run_data.speed = 60
         m1_sprint_3.m1_dive_for_ball(self.robot, run_data)
